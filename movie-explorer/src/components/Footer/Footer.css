@@ -1,0 +1,48 @@
+.footer {
+    padding: 79px 70px 20px;
+}
+
+.link {
+    margin: 20px 0 0 20px;
+    color: white;
+    text-decoration: none;
+    font-weight: 400;
+font-size: 13px;
+line-height: 16px;
+}
+
+.footer__paragraph {
+    margin: 0 0 20px;
+    color: #8B8B8B;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    text-align: center;
+}
+
+.copyright {
+    margin: 20px 0 0;
+    font-weight: 400;
+font-size: 13px;
+line-height: 16px;
+}
+
+.author {
+    margin: 20px 0 0;
+    font-weight: 400;
+font-size: 13px;
+line-height: 16px;
+}
+
+
+.blok {
+    border-top: 1px solid #424242;
+    max-width: 1140px;
+    display:  flex;
+    justify-content: space-between;
+}
+
+.blok-author {
+    display:  flex;
+    justify-content: space-between;
+}

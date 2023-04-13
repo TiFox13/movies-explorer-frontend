@@ -1,0 +1,52 @@
+.promo {
+    background-color: #073042;
+
+    padding: 75px 70px;
+}
+
+.promo__contaner {
+    display: flex;
+    justify-content: space-between;
+}
+
+.text-contaner{
+    max-width: 640px;
+}
+
+.title {
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 116%;
+
+}
+
+.paragraph {
+    max-width: 310px;
+    text-align: left;
+    margin: 36px 0 0;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    opacity: 0.5;
+}
+
+.promo__image {
+    width: 310px;
+    height: 304px;
+}
+
+.promo__button {
+    margin-top: 84px;
+    width: 129px;
+    height: 36px;
+
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 3px;
+
+    background-color: #073042;
+    color: #FFF;
+
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 133%;
+}
