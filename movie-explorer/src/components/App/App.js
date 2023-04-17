@@ -7,6 +7,9 @@ import Main from '../Main/Main.js'
 import Footer from '../Footer/Footer.js'
 import Promo from '../Promo/Promo.js';
 import AboutProject from '../AboutProject/AboutProject.js';
+import Techs from '../Techs/Techs.js';
+import AboutMe from '../AboutMe/AboutMe.js';
+import Portfolio from '../Portfolio/Portfolio.js';
 
 function App() {
   return (
@@ -17,6 +20,9 @@ function App() {
           <div>
             <Promo />
             <AboutProject />
+            <Techs />
+            <AboutMe />
+            <Portfolio />
             <Footer />
           </div>
           {/* } />

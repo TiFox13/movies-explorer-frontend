@@ -3,17 +3,21 @@
 
 }
 
-.project__title {
+.block__title {
+    margin: 0;
     font-style: normal;
     font-weight: 400;
     font-size: 22px;
     line-height: 27px;
+    border-bottom: 2px solid #DADADA;
+    padding-bottom: 26px;
 }
+
+
 
 .project__contaner {
     display: flex;
     justify-content: space-between;
-    border-top: 2px solid #DADADA;
     padding: 70px 0 110px;
 }
 
