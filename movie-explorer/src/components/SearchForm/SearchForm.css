@@ -1,0 +1,126 @@
+.search-form {
+    margin: 70px 70px 70px;
+    height: 72px;
+    background-color: #2F2F2F;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.search-input {
+    padding: 0;
+    margin-left: 16px;
+    width: 68.9%;
+    border: 0;
+    background-color: #2F2F2F;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 111%;
+    
+    color: #8B8B8B;
+}
+
+.search-icon {
+    margin-left: 25px;
+} 
+
+.search-button {
+    width: 34px;
+    height: 34px;
+    background-color: #4285F4;
+    border-radius: 48px;
+    background-image: url(../../images/foundIcon.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.line {
+   margin-left: 30px; 
+   margin-right: 29px;
+   height: 40px;
+   border: 1px solid #424242;
+}
+
+.checkbox-text {
+		margin-left: 14px;
+margin: 0 30px 0 14px;
+font-weight: 400;
+font-size: 13px;
+line-height: 138%;
+}
+
+.checkbox {
+	display: inline-block;    
+	height: 20px;    
+	line-height: 20px;  
+     
+	position: relative;
+	vertical-align: middle;
+	font-size: 14px;
+	user-select: none;	
+
+    
+}
+.checkbox .checkbox-switch {
+    border: 0;
+	position: relative;	
+	display: inline-block;
+	box-sizing: border-box;			
+	width: 36px;	
+	height: 20px;
+
+	border-radius: 25%/50%;	
+	vertical-align: top;
+	background: #343434;
+	transition: .2s;
+}
+
+.checkbox .checkbox-switch:before {
+	content: '';
+	position: absolute;
+	top: 2px;
+	left: 1px;	
+	display: inline-block;
+	width: 14px;	
+	height: 14px;
+	border-radius: 50%;
+	background: #A0A0A0;
+    border: 1px solid white;
+	/* box-shadow: 0 3px 5px rgba(0, 0, 0, .3); */
+	transition: .15s;
+}
+
+
+.checkbox .checkbox-input[type=checkbox] {
+	display: block;	
+	width: 0;
+	height: 0;	
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+}
+
+.checkbox .checkbox-input[type=checkbox]:checked + .checkbox-switch {
+	background: #343434;
+}
+.checkbox .checkbox-input[type=checkbox]:checked + .checkbox-switch:before {
+	transform:translateX(18px);
+	background: #2BE080;
+}
+ 
+/* Hover */
+.checkbox .checkbox-input[type="checkbox"]:not(:disabled) + .checkbox-switch {
+	cursor: pointer;
+	border-color: rgba(0, 0, 0, .3);
+}
+ 
+/* Disabled */
+.checkbox .checkbox-input[type=checkbox]:disabled + .checkbox-switch {
+	filter: grayscale(70%);
+	border-color: rgba(0, 0, 0, .1);
+}
+.checkbox .checkbox-input[type=checkbox]:disabled + .checkbox-switch:before {
+	background: #eee;
+}

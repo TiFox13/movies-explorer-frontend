@@ -3,6 +3,7 @@
 }
 
 .portfolio__title {
+    margin-top: 101px;
     font-weight: 400;
     font-size: 18px;
     line-height: 111%;
@@ -10,17 +11,25 @@
     margin-bottom: 50px;
 }
 
-.portfolio__link {
+.link_portfolio {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
     padding-bottom: 20px;
     border-bottom: 1px solid #424242;
     width: 100%;
-    color: white;
     font-weight: 400;
 font-size: 30px;
 line-height: 167%;
-text-decoration: none;
 }
 
+.link_portfolio:last-child {
+    border: 0;
+    padding-bottom: 0;
+}
+
+.link_git-in-portfolio {
+    font-weight: 500;
+font-size: 14px;
+line-height: 17px;
+}

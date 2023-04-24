@@ -1,0 +1,48 @@
+.login {
+    width: 396px;
+    padding: 70px 0;
+    margin: 0 auto;
+}
+
+
+.form__input-field {
+    height: 50px;
+    font-weight: 400;
+font-size: 10px;
+line-height: 12px;
+color: #8B8B8B;
+
+
+}
+
+.login-save-button {
+    margin: 202px 0 16px;
+    width: 100%;
+    height: 45px;
+    background-color: #4285F4;
+    color: white;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+}
+
+.login-paragraph {
+    font-weight: 400;
+font-size: 14px;
+line-height: 17px;
+
+text-align: center;
+
+color: #8B8B8B;
+margin: 0;
+}
+
+.link_login {
+    font-weight: 400;
+font-size: 14px;
+line-height: 17px;
+text-align: center;
+
+color: #4285F4;
+}

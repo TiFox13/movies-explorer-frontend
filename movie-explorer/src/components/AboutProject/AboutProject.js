@@ -19,8 +19,8 @@ function AboutProject() {
       <div className='schema'>
         <p className='schema__back-time'>1 неделя</p>
         <p className='schema__front-time'>4 недели</p>
-        <p className='schema__front-info'>Back-end</p>
-        <p className='schema__back-info'>Front-end</p>
+        <p className='schema__back-info'>Back-end</p>
+        <p className='schema__front-info'>Front-end</p>
       </div>
     </section>
   )

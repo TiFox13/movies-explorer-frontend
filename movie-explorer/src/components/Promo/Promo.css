@@ -9,7 +9,7 @@
     justify-content: space-between;
 }
 
-.text-contaner{
+.promo__text-contaner{
     max-width: 640px;
 }
 
@@ -17,7 +17,6 @@
     font-weight: 400;
     font-size: 50px;
     line-height: 116%;
-
 }
 
 .paragraph {

@@ -1,0 +1,38 @@
+.navigation {
+    display: flex;
+    width: 676px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.link_nav {
+
+    margin: 0 16px 0 0;
+    font-weight: 400;
+font-size: 13px;
+line-height: 138%
+}
+
+.link_account {
+    align-items: center;
+    width: 100px;
+    display: flex;
+    justify-content: space-between;
+    text-decoration: none;
+    color: white;
+
+    font-weight: 500;
+font-size: 14px;
+line-height: 16px;
+}
+
+.navigation__icon {
+    width: 26px;
+    height: 30px;
+    border-radius: 4px;
+    background-color: 
+    #313131;
+    background-image: url(../../images/accountIcon.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+}

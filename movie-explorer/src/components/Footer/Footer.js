@@ -11,7 +11,7 @@ function Footer() {
         <p className="copyright">&#169; 2023</p>
         <div className='blok-author'>
           <p className="author">Мозина Полина</p>
-          <a className='link' href='#'>Github</a>
+          <a className='link link_footer' href='#'>Github</a>
         </div>
       </div>
     </footer>

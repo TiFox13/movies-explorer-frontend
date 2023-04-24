@@ -9,8 +9,8 @@
     font-weight: 400;
     font-size: 22px;
     line-height: 27px;
-    border-bottom: 2px solid #DADADA;
-    padding-bottom: 26px;
+    border-bottom: 1px solid #DADADA;
+    padding-bottom: 23px;
 }
 
 
@@ -29,6 +29,7 @@
     font-weight: 400;
     font-size: 20px;
     line-height: 24px;
+    margin: 0;
 }
 
 .project__paragraph {
@@ -41,9 +42,10 @@
 .schema {
     display: grid;
     min-height: 72px;
+    grid-template-columns: repeat(5, 1fr);
     grid-template-areas:
     'back-time front-time front-time front-time front-time'
-    'front-info back-info back-info back-info back-info';
+    'back-info front-info front-info front-info front-info';
     justify-items: center;
 }
 
@@ -74,7 +76,7 @@
 }
 .schema__front-info {
     margin: 0;
-    padding: 9.5px 0;
+    padding: 14px 0 0;
     grid-area: front-info;
     font-weight: 500;
     font-size: 14px;
@@ -85,7 +87,7 @@
 }
 .schema__back-info {
     margin: 0;
-    padding: 9.5px 0;
+    padding: 14px 0 0;
     grid-area: back-info;
     font-weight: 500;
     font-size: 14px;
