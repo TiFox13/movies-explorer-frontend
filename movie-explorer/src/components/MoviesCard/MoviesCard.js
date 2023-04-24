@@ -1,9 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import './MoviesCard.css';
 
 function MoviesCard({name, duration, image, deleteClass}) {
-  // console.log(deleteClass)
+
+  const [isActive, setActive] = useState(false);
+
+  function handleFavorClick() {
+    if (!isActive) {
+      setActive(true)
+    } else {
+      setActive(false)
+    }
+  }
+
   return (
     <article className='movie'>
         <div className='movie-info'>
@@ -11,7 +21,7 @@ function MoviesCard({name, duration, image, deleteClass}) {
                 <p className='movie-name'>{name}</p>
                 <p className='movie-duration'>{duration}</p>
             </div>
-            <div className={`favofite-icon ${deleteClass}`}></div> 
+            <button onClick={handleFavorClick} className={isActive ? `button favofite-button ${deleteClass} favofite-icon_active` : `button favofite-button ${deleteClass}`}></button> 
         </div>
     <img className='movie-image' alt='кадр из фильма.' src={image}></img>
     </article>

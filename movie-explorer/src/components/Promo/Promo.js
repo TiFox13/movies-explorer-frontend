@@ -1,10 +1,18 @@
 import React from 'react';
+import { useNavigate } from "react-router-dom"
 
 import './Promo.css';
 
 import promoImage from '../../images/promoImage.svg';
 
 function Promo() {
+
+  const navigate = useNavigate();
+  
+  const navigateMovies = (event) => {
+      navigate("/movies");
+  };
+
   return (
     <section className='promo'>
       <div className='promo__contaner'>
@@ -14,7 +22,7 @@ function Promo() {
         </div>
         <img className='promo__image' alt='схематичное изображение планеты земля из скоплений слова WEB' src={promoImage} />
       </div>
-      <button className=' button promo__button'>Узнать больше</button>
+     <button className=' button promo__button' onClick={navigateMovies}>Узнать больше</button>
     </section>
   )
 }

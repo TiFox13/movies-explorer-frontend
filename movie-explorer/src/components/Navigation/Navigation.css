@@ -36,3 +36,7 @@ line-height: 16px;
     background-repeat: no-repeat;
     background-position: center;
 }
+
+.link-active {
+    font-weight: 500;
+}

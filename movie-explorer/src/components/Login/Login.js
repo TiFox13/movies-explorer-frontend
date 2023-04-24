@@ -19,7 +19,9 @@ function Login({}) {
 
   return (
     <div className='login'>
+      <Link to='/'>
         <img className='logo' alt='логотип в виде зеленой баранки.' src={headerLogo}></img>
+      </Link>
         <form className='form' name='login' method='post' >
           <h2 className="form__heading">Рады видеть!</h2>
           <label className = "form__input-field">E-mail

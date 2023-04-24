@@ -31,7 +31,7 @@ function App() {
           <Route path='/movies' element={(
           <>
             <Header>
-              <Navigation />
+              <Navigation linkMoviesActiveClass='link-active'/>
             </Header>
             <SearchForm />
             <MoviesCardList>
@@ -43,10 +43,10 @@ function App() {
           <Route path='/saved-movies' element={
             <>
               <Header>
-              <Navigation />
+              <Navigation  linkActiveClass='link-active'/>
             </Header>
             <SearchForm />
-            <MoviesCardList deleteClass='delete-icon'/>
+            <MoviesCardList deleteClass='delete-icon' />
             <Footer />
             </>
           } />
