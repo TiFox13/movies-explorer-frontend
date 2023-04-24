@@ -88,7 +88,6 @@ line-height: 138%;
 	border-radius: 50%;
 	background: #A0A0A0;
     border: 1px solid white;
-	/* box-shadow: 0 3px 5px rgba(0, 0, 0, .3); */
 	transition: .15s;
 }
 
@@ -105,6 +104,7 @@ line-height: 138%;
 .checkbox .checkbox-input[type=checkbox]:checked + .checkbox-switch {
 	background: #343434;
 }
+
 .checkbox .checkbox-input[type=checkbox]:checked + .checkbox-switch:before {
 	transform:translateX(18px);
 	background: #2BE080;
