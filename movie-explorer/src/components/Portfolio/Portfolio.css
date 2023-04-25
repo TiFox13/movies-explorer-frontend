@@ -14,6 +14,7 @@
 .link_portfolio {
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 	margin-top: 20px;
 	padding-bottom: 20px;
 	border-bottom: 1px solid #424242;
@@ -28,6 +29,14 @@
 	padding-bottom: 0;
 }
 
+.portfolio-link-icon {
+	background-image: url(../../images/link.svg);
+	width: 29px;
+	height: 29px;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
 
 @media all and (max-width:768px) {
 	.portfolio {
@@ -37,5 +46,26 @@
 	.link_portfolio {
     font-size: 28px;
     line-height: 179%;
+		border-bottom: 1px solid #E6E6E6;
+	}
+}
+
+
+@media all and (max-width:320px) {
+	.portfolio {
+		padding: 0 14px 70px;
+	}
+	.portfolio__title {
+		font-size: 14px;
+		line-height: 20px;
+		margin-bottom: 40px;
+	}
+	.link_portfolio {
+		font-size: 18px;
+	line-height: 156%;
+	}
+	.portfolio-link-icon {
+		width: 18px;
+		height: 18px;
 	}
 }

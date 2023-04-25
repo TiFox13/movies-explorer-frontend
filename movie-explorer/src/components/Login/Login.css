@@ -52,3 +52,26 @@ color: #4285F4;
         padding: 232px 0;
     }
 }
+
+
+@media all and (max-width:320px) {
+    .login {
+      width: 260px;
+      padding: 56px 0 30px;
+      margin: 0 auto;
+    }
+    .logo {
+      margin: 0 42%;
+    }
+    .form__heading{
+      text-align: center;
+      margin: 50px 0 80px;
+    }
+    .login-save-button {
+      margin: 222px 0 14px;
+    }
+    .login-paragraph {
+      font-size: 12px;
+      line-height: 15px;
+    }
+  }

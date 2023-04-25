@@ -18,7 +18,7 @@
 	text-align: center;
 }
 
-.flex-contaner {
+.techs-contaner {
 	display: flex;
 	justify-content: center;
 }
@@ -51,6 +51,7 @@
 	line-height:143%;
 	text-align: center;
 	letter-spacing: -0.04em;
+	margin: 0;
 }
 
 @media all and (max-width:768px) {
@@ -79,5 +80,33 @@
 	.technologies__paragraph {
 		font-size: 12px;
 		line-height: 15px;
+	}
+}
+
+
+@media all and (max-width:320px) {
+	.technologies {
+		padding: 70px 18px;
+		background-color: #202020;
+	}
+	.technologies__subtitle {
+		font-weight: 400;
+		font-size: 30px;
+		line-height: 36px;
+		margin: 60px 0 24px;
+	}
+	.paragraph_technologies {
+		font-size: 11px;
+		line-height: 145%;
+	}
+	.technologies__contaner {
+		margin-bottom: 50px;
+	}
+	.techs-contaner {
+		display: grid;
+		gap: 10px;
+		width: 178px;
+		grid-template-columns: 1fr 1fr;
+		margin: 0 auto;
 	}
 }

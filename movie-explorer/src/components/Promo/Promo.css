@@ -85,3 +85,27 @@
 		margin: 92px 41.6% 10px;
 	}
 }
+
+
+@media all and (max-width:320px) {
+	.promo {
+		padding: 70px 0 30px;
+	}
+	.promo__contaner {
+		row-gap: 44px;
+	}
+	.title {
+		font-size: 30px;
+		line-height: 127%;
+	}
+	.paragraph {
+		margin: 24px auto 0;
+	}
+	.promo__button {
+		margin: 80px 30% 0px;
+	}
+	.promo__image {
+		width: 210px;
+		height: 206px;
+	}
+}

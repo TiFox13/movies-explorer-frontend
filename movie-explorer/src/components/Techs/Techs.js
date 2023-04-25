@@ -10,7 +10,7 @@ function Techs() {
           <h3 className='technologies__subtitle'>7 технологий</h3>
           <p className='paragraph_technologies'>На курсе веб-разработки мы освоили технологии, которые применили в дипломном проекте.</p>
       </div>
-      <div className='flex-contaner'>
+      <div className='techs-contaner'>
         <div className='technologies-block'>
             <p className='paragraph technologies__paragraph'>HTML</p>
         </div>

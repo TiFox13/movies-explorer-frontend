@@ -64,8 +64,8 @@ function handleSubmit(e) {
 
 const navigate = useNavigate();
   
-  const navigateMovies = (e) => {
-      navigate("/movies");
+  const navigateLogin = (e) => {
+      navigate("/signin");
   };
 
 
@@ -87,7 +87,7 @@ const navigate = useNavigate();
         <span className = "form__item-error name-input-error_profile">{nameError ||  emailError}</span>
         <input type="button" onClick={handlePatchClick} className="button profile-button" value='Редактировать' aria-label="Редактировать" hidden={formActive}/>
         <input type="submit"  onClick={handleSubmit} className=" button profile-save-button" value="Сохранить" aria-label="Сохранить" hidden={!formActive} disabled={!formValid}/>
-        <input type="button" onClick={navigateMovies} className="button profile-button profile-button_sign-out" value="Выйти из аккаунта" aria-label="Выйти из аккаунта" hidden={formActive}/>
+        <input type="button" onClick={navigateLogin} className="button profile-button profile-button_sign-out" value="Выйти из аккаунта" aria-label="Выйти из аккаунта" hidden={formActive}/>
       </form>
     </section>
 

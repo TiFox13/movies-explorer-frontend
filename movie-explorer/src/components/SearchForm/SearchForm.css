@@ -3,7 +3,8 @@
     height: 72px;
     background-color: #2F2F2F;
     border-radius: 9px;
-    display: flex;
+    display: grid;
+		grid-template-columns: auto minmax(200px, 805px) auto auto auto ;
     align-items: center;
     justify-content: space-between;
 
@@ -12,7 +13,7 @@
 .search-input {
     padding: 0;
     margin-left: 16px;
-    width: 68.9%;
+    width: 60%;
     border: 0;
     background-color: #2F2F2F;
     font-weight: 400;
@@ -140,5 +141,26 @@ line-height: 138%;
 
 	.search-input  {
 		width: 54%;
+	}
+}
+
+@media all and (max-width:610px) {
+	.checkbox {
+		display: none;
+	}
+}
+@media all and (max-width:360px) {
+	.line {
+		display: none;
+	}
+	.search-icon {
+		display: none;
+	}
+
+	.search-form {
+		margin: 80px 10px 70px;
+		height: auto;
+		padding: 19px;
+		grid-template-columns: auto  auto;
 	}
 }

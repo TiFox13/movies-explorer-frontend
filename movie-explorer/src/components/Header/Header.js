@@ -8,9 +8,7 @@ import headerLogo from '../../images/headerLogo.svg';
 function Header(props) {
   return (
     <header className={`header ${props.class}`} >
-      <Link to='/'>
-        <img className='logo' alt='логотип в виде зеленой баранки.' src={headerLogo}></img>
-      </Link>
+      <Link to='/' className='logo' />
       {props.children}
     </header>
   )
