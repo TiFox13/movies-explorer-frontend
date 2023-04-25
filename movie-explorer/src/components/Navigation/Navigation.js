@@ -4,35 +4,51 @@ import { Link } from 'react-router-dom';
 import './Navigation.css'
 
 function Navigation(props) {
+
+const [menuOpened, setMenuOpened] = React.useState(false);
+const [menuOpenedClass, setMenuOpenedClass] = React.useState('')
+const [burgerOpenedClass, setBurgerOpenedClass] = React.useState('')
+
+  function handlerBurgerClick() {
+    if (!menuOpened) {
+      setMenuOpened(true)
+      setMenuOpenedClass('link-for-burger_opened')
+      setBurgerOpenedClass('menu__burger_active')
+    } else {
+      setMenuOpened(false)
+      setMenuOpenedClass('')
+      setBurgerOpenedClass('')
+    }
+  }
+
   return (
+    <>
+    
      <div className="hamburger-menu">
     <input className="menu__toggle" type="checkbox"/>
-    <label className="menu__btn" for="menu__toggle">
-      <span></span>
-    </label>
-  
-    <nav className='navigation'>
-      <ul className='menu'>
-        <Link to='/' className='link'>
-            <li className={`link link_nav link-for-burger`} href='#'>Главная</li>
+    <button onClick={handlerBurgerClick} className={`button menu__burger ${burgerOpenedClass}`} for="menu__toggle">
+    </button>
+</div>
+    <nav className={`navigation ${menuOpenedClass}`}>
+      <div className='menu'>
+        <Link to='/' className={`link  link-for-burger  ${menuOpenedClass}` }>
+            <p className={`link link_nav`} >Главная</p>
           </Link>
           <Link to='/movies' className='link'>
-            <li className={`link link_nav ${props.linkMoviesActiveClass}`} href='#'>Фильмы</li>
+            <p className={`link link_nav ${props.linkMoviesActiveClass}`}>Фильмы</p>
           </Link>
           <Link to='/saved-movies' className='link'>
-            <li className={`link link_nav ${props.linkActiveClass}`} href='#'>Сохранённые фильмы</li>
+            <p className={`link link_nav ${props.linkActiveClass}`}>Сохранённые фильмы</p>
           </Link>
-
+          </div>
         <Link to='/profile' className='link'>
-          <li className={`link link_account ${props.profileLinkActiveClass}`} href='#'>Аккаунт
+          <p className={`link link_account ${props.profileLinkActiveClass}`}>Аккаунт
           <div className='navigation__icon'></div>
-          </li>
+          </p>
         </Link>
-      </ul>
-    
     </nav>
-    </div>
-
+    
+    </>
   )
 }
 
