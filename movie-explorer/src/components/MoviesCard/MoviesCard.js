@@ -21,7 +21,7 @@ function MoviesCard({name, duration, image, deleteClass}) {
                 <p className='movie-name'>{name}</p>
                 <p className='movie-duration'>{duration}</p>
             </div>
-            <button onClick={handleFavorClick} className={isActive ? `button favofite-button ${deleteClass} favofite-icon_active` : `button favofite-button ${deleteClass}`}></button> 
+            <button onClick={handleFavorClick} className={isActive ? `button favofite-button ${deleteClass} favofite-button_active` : `button favofite-button ${deleteClass}`} /> 
         </div>
     <img className='movie-image' alt='кадр из фильма.' src={image}></img>
     </article>

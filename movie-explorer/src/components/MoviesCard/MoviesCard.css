@@ -1,18 +1,18 @@
 .movie {
-    max-width: 364px;
-    height: 271px;
-    background-color: #222222;
+  max-width: 364px;
+  max-height: 271px;
+  background-color: #222222;
 }
 
 .movie-info {
-    display: flex;
-    justify-content: space-between;
-    padding: 14px;
+  display: flex;
+  justify-content: space-between;
+  padding: 14px;
 }
 
 .movie-name {
-    margin: 0;
-    font-weight: 500;
+  margin: 0;
+  font-weight: 500;
 font-size: 15px;
 line-height: 18px;
 
@@ -20,36 +20,34 @@ color: #FFFFFF;
 }
 
 .movie-duration {
-    margin: 9px 0 0;
-    font-weight: 400;
-font-size: 11px;
-line-height: 13px;
+  margin: 9px 0 0;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
 
 color: #8B8B8B;
 }
 
-.favofite-icon {
-    width: 30px;
-    height: 30px;
-    background-color: #313131;
-    background-image: url(../../images/favoriteIcon.svg);
-    background-repeat: no-repeat;
-    background-position: center;
-    border-radius: 36px;
+.favofite-button {
+  width: 30px;
+  height: 30px;
+  background-color: #313131;
+  background-image: url(../../images/favoriteIcon.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 36px;
 }
-.favofite-icon_active {
-    background-color: #3DDC84;
-    background-image: url(../../images/favoriteIcon-active.svg);
-}
-
-.delete-icon {
-    background-image: url(../../images/delete-icon.svg);
+.favofite-button_active {
+  background-color: #3DDC84;
+  background-image: url(../../images/favoriteIcon-active.svg);
 }
 
-
+.delete-button {
+  background-image: url(../../images/delete-icon.svg);
+}
 
 .movie-image {
-    width: 100%;
-    max-height: 203px;
-    object-fit: contain;
+  width: 100%;
+  max-height: 203px;
+  object-fit: contain;
 }

@@ -46,3 +46,9 @@ text-align: center;
 
 color: #4285F4;
 }
+
+@media all and (max-width:768px) {
+    .login {
+        padding: 232px 0;
+    }
+}

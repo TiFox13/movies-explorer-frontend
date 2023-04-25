@@ -90,3 +90,15 @@ padding-top: 10px;
  text-align: center;
  margin-bottom: 20px;
 }
+
+
+
+@media all and (max-width:768px) {
+    .profile {
+        padding: 236px 0 269px;
+    }
+
+    .text-inputs-fieldset {
+        margin: 0 0 169px;
+    }
+}

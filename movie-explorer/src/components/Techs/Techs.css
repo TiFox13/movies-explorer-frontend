@@ -1,53 +1,83 @@
 .technologies {
-  background-color: #272727;
-  padding: 100px 70px 100px 70px;
+	background-color: #272727;
+	padding: 100px 70px 100px 70px;
 }
 
 
 .technologies__contaner {
-    margin: 0 auto 100px;
-    max-width: 460px;
-    text-align: center;
+	margin: 0 auto 100px;
+	max-width: 460px;
+	text-align: center;
 }
 .technologies__subtitle {
-    margin: 90px 0 26px;
-    font-weight: 400;
-font-size: 50px;
-line-height: 116%;
-letter-spacing: -0.04em;
-text-align: center;
+	margin: 90px 0 26px;
+	font-weight: 400;
+	font-size: 50px;
+	line-height: 116%;
+	letter-spacing: -0.04em;
+	text-align: center;
 }
 
 .flex-contaner {
-
-display: flex;
-justify-content: center;
+	display: flex;
+	justify-content: center;
 }
 
 .technologies-block {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 90px;
-    height: 60px;
-    background-color: #303030;
-    border-radius: 10px;
-    margin-right: 10px;
- 
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 90px;
+	height: 60px;
+	background-color: #303030;
+	border-radius: 10px;
+	margin-right: 10px;
+
 }
 
 .technologies-block:last-child {
-    margin-right: 0px;
+	margin-right: 0px;
 }
 
 .technologies__paragraph {
-    margin: 5px;
+	margin: 5px;
+	color: #FFFFFF;
+	opacity: 1;
 }
 
 .paragraph_technologies {
-    font-weight: 400;
-font-size: 14px;
-line-height:143%;
-text-align: center;
-    letter-spacing: -0.04em;
+	font-weight: 400;
+	font-size: 14px;
+	line-height:143%;
+	text-align: center;
+	letter-spacing: -0.04em;
+}
+
+@media all and (max-width:768px) {
+	.technologies {
+		padding: 90px 50px;
+	}
+
+	.technologies__contaner {
+	margin: 0 auto 83px;
+	}
+
+	.technologies__subtitle {
+		margin: 80px 0 22px;
+	}
+
+	.paragraph_technologies {
+		font-size: 12px;
+		line-height: 150%;
+	}
+
+	.technologies-block {
+		width: 84px;
+		height: 57px;
+	}
+	
+	.technologies__paragraph {
+		font-size: 12px;
+		line-height: 15px;
+	}
 }

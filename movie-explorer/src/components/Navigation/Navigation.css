@@ -1,42 +1,141 @@
 .navigation {
-    display: flex;
-    width: 676px;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  width: 676px;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .link_nav {
+  margin: 0 16px 0 0;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 138%;
+}
 
-    margin: 0 16px 0 0;
-    font-weight: 400;
-font-size: 13px;
-line-height: 138%
+.menu {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.link-for-burger {
+  visibility: hidden;
 }
 
 .link_account {
-    align-items: center;
-    width: 100px;
-    display: flex;
-    justify-content: space-between;
-    text-decoration: none;
-    color: white;
+  align-items: center;
+  width: 100px;
+  display: flex;
+  justify-content: space-between;
+  color: white;
 
-    font-weight: 500;
-font-size: 14px;
-line-height: 16px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
 }
 
 .navigation__icon {
-    width: 26px;
-    height: 30px;
-    border-radius: 4px;
-    background-color: 
-    #313131;
-    background-image: url(../../images/accountIcon.svg);
-    background-repeat: no-repeat;
-    background-position: center;
+  width: 26px;
+  height: 30px;
+  border-radius: 4px;
+  background-color: #313131;
+  background-image: url(../../images/accountIcon.svg);
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .link-active {
     font-weight: 500;
+}
+
+
+@media all and (max-width:768px) {
+  
+  .navigation {
+    display:block;
+    position: fixed;
+    max-width: calc(520px - 180px);
+    height: calc(100% - 159px - 92px);
+    top: 0;
+    right: 0px;
+    padding: 159px 90px 92px;
+    background-color: #202020;
+    visibility: hidden;
+    z-index: 1;
+  }
+
+
+  .link_nav{
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    margin: 0 0 28px;
+    text-align: center;
+  }
+
+.link_account {
+margin: 621px auto 0;
+text-align: center;
+}
+
+  .link-active {
+    text-decoration: underline;
+  }
+
+  .menu__toggle {
+    opacity: 0;
+    position:absolute;
+    z-index: 2;
+    top: 15px;
+    right: 35px;
+
+    }
+
+    .menu__btn {
+    display: flex; 
+    align-items: center;  
+    position: absolute; 
+    top: 26px;
+    right: 30px;
+
+    width: 28px;
+    height: 23px;
+    cursor: pointer;
+    z-index: 2;
+    }
+
+    /* добавляем "гамбургер" */
+    .menu__btn > span,
+    .menu__btn > span::before,
+    .menu__btn > span::after {
+      display: block;
+      position: absolute;
+      width: 28px;
+      height: 3px;
+      background-color: white;
+
+    }
+    .menu__btn > span::before {
+      content: '';
+      top: -8px;
+    }
+    .menu__btn > span::after {
+      content: '';
+      top: 8px;
+    }
+
+    .menu__toggle:checked ~ .menu__btn > span {
+      transform: rotate(45deg);
+    }
+    .menu__toggle:checked ~ .menu__btn > span::before {
+      top: 0;
+      transform: rotate(0);
+    }
+    .menu__toggle:checked ~ .menu__btn > span::after {
+      top: 0;
+      transform: rotate(90deg);
+    }
+    .menu__toggle:checked ~ .navigation {
+      visibility: visible;
+    }
 }

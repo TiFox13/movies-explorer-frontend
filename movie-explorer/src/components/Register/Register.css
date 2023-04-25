@@ -80,3 +80,10 @@ color: #4285F4;
     
     color: #EE3465; 
 }
+
+
+@media all and (max-width:768px) {
+    .register {
+        padding: 232px 0;
+    }
+}

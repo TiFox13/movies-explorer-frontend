@@ -44,3 +44,9 @@ line-height: 16px;
     display:  flex;
     justify-content: space-between;
 }
+
+@media all and (max-width:768px) {
+    .footer {
+        padding: 79px 30px 20px;
+    }
+}

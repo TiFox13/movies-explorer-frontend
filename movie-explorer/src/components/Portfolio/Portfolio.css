@@ -1,35 +1,41 @@
 .portfolio {
-    padding: 50px 70px 125px;
+	padding: 101px 70px 125px;
 }
 
 .portfolio__title {
-    margin-top: 101px;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 111%;
-    color: #8B8B8B;
-    margin-bottom: 50px;
+	margin-top: 0;
+	font-weight: 400;
+	font-size: 18px;
+	line-height: 111%;
+	color: #8B8B8B;
+	margin-bottom: 50px;
 }
 
 .link_portfolio {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #424242;
-    width: 100%;
-    font-weight: 400;
-font-size: 30px;
-line-height: 167%;
+	display: flex;
+	justify-content: space-between;
+	margin-top: 20px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #424242;
+	width: 100%;
+	font-weight: 400;
+	font-size: 30px;
+	line-height: 167%;
 }
 
 .link_portfolio:last-child {
-    border: 0;
-    padding-bottom: 0;
+	border: 0;
+	padding-bottom: 0;
 }
 
-.link_git-in-portfolio {
-    font-weight: 500;
-font-size: 14px;
-line-height: 17px;
+
+@media all and (max-width:768px) {
+	.portfolio {
+    padding: 0 50px 90px;
+	}
+
+	.link_portfolio {
+    font-size: 28px;
+    line-height: 179%;
+	}
 }

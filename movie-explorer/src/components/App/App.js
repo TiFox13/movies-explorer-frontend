@@ -46,14 +46,14 @@ function App() {
               <Navigation  linkActiveClass='link-active'/>
             </Header>
             <SearchForm />
-            <MoviesCardList deleteClass='delete-icon' />
+            <MoviesCardList deleteClass='delete-button' />
             <Footer />
             </>
           } />
           <Route path='/profile' element={
             <>
             <Header>
-              <Navigation />
+              <Navigation  profileLinkActiveClass='link-active' />
             </Header>
             <Profile />
             </>

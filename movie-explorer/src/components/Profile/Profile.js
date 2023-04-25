@@ -38,7 +38,6 @@ useEffect(() => {
 function handleChangeName(e) {
   setName(e.target.value);
   if (2 <= e.target.value.length || e.target.value.length >= 30)  {
-    console.log(e.target.value.length)
     setNameError('');
   } else {
     setNameError('Имя должно содержать больше 2 символов и менее 30')
