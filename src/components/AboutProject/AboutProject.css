@@ -1,0 +1,168 @@
+.project {
+	padding: 110px 70px;
+
+}
+
+.section__title {
+	margin: 0;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 22px;
+	line-height: 27px;
+	border-bottom: 1px solid #DADADA;
+	padding-bottom: 23px;
+}
+
+.project__contaner {
+	display: flex;
+	justify-content: space-between;
+	padding: 70px 0 110px;
+}
+
+.text-contaner {
+	width: 550px;
+}
+.text-contaner:last-child {
+	margin-left: 20px;
+}
+
+.project__subtitle {
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 24px;
+	margin: 0;
+}
+
+.project__paragraph {
+	margin: 26px 0 0;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 143%;
+}
+
+.schema {
+	display: grid;
+	min-height: 72px;
+	grid-template-columns: repeat(5, 1fr);
+	grid-template-areas:
+	'back-time front-time front-time front-time front-time'
+	'back-info front-info front-info front-info front-info';
+	justify-items: center;
+}
+
+.schema__time {
+	margin: 0;
+	padding: 9.5px 0;
+	width: 100%;
+	background-color: #303030;;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 17px;
+	text-align: center;
+}
+
+.front-time {
+	grid-area: front-time;
+}
+
+.back-time {
+	background-color: #3DDC84;
+	grid-area: back-time;
+}
+
+.schema__info {
+	margin: 0;
+	padding: 14px 0 0;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 121%;
+
+	text-align: center;
+	color: #8B8B8B;
+}
+
+.front-info {
+	grid-area: front-info;
+}
+
+.schema__back-info {
+	grid-area: back-info;
+}
+
+@media all and (max-width:768px) {
+	.project {
+		padding: 90px 50px;
+	}
+
+	.project__contaner {
+		padding: 70px 0 93px;
+	}
+
+	.project__paragraph {
+		font-size: 12px;
+		line-height: 150%;
+	}
+}
+
+@media all and (max-width:650px) {
+	.project__contaner {
+		flex-wrap: wrap;
+		padding: 60px 0 0 ;
+	}
+	.text-contaner {
+		max-width: 550px;
+	}
+	.text-contaner:last-child {
+		margin: 0;
+	}
+	.project__paragraph {
+		margin: 16px 0 56px;
+	}
+	
+	.schema {
+		align-content: center;
+		margin-top: 4px;
+		grid-template-columns: 35% 65%;
+	}
+	.schema__time {
+		padding: 11px 0;
+		font-size: 11px;
+		line-height: 13px;
+	}
+	.schema__info {
+		padding-top: 10px;
+		font-size: 11px;
+		line-height: 13px;
+	}
+}
+
+@media all and (max-width:320px) {
+	.project {
+		padding: 70px 18px;
+	}
+
+	.project__contaner {
+		display: block;
+		padding: 60px 0 0 ;
+	}
+	
+	.section__title  {
+		font-size: 18px;
+		line-height: 22px;
+		padding-bottom: 28px;
+	}
+
+	.text-contaner {
+		max-width: 284px;
+	}
+
+	.project__subtitle {
+		font-size: 18px;
+		line-height: 22px;
+	}
+	
+	.project__paragraph {
+		font-size: 11px;
+		line-height: 145%;
+	}
+}

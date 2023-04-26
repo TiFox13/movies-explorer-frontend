@@ -1,0 +1,35 @@
+.login-button {
+  background-color: #3DDC84;
+  width: 76px;
+  height: 32px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 133%;
+}
+
+.register-button {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 133%;
+  width: auto;
+  height: 32px;
+  background-color: rgba(0, 0, 0, 0);
+  color: white;
+  margin-right: 30px;
+}
+
+@media all and (max-width:320px) {
+  .login-button {
+    width: 54px;
+    height: 26px;
+    font-size: 10px;
+    line-height: 160%;
+  }
+
+  .register-button {
+    height: 26px;
+    font-size: 10px;
+    line-height: 160%;
+    margin-right: 14px;
+  }
+}
