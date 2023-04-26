@@ -1,18 +1,20 @@
 import React from 'react';
-import { Route, Routes, useNavigate, Link } from 'react-router-dom';
+import { Route, Routes} from 'react-router-dom';
 
 import './App.css';
 
-import Main from '../Main/Main.js'
+import Main from '../Main/Main'
 import Header from '../Header/Header';
-import Footer from '../Footer/Footer.js';
-import Navigation from '../Navigation/Navigation.js'
+import Footer from '../Footer/Footer';
+import Navigation from '../Navigation/Navigation'
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import MoreButton from '../MoreButton/MoreButton'
 import SearchForm from '../SearchForm/SearchForm'
 import Profile from '../Profile/Profile'
 import Register from '../Register/Register';
 import Login from '../Login/Login';
+
+import Error from '../Error/Error';
 
 function App() {
   return (
@@ -58,6 +60,10 @@ function App() {
             <Profile />
             </>
           } />
+        <Route path='/error' element={
+          <Error />
+        } />
+
         </Routes>
       </div>
     </div>

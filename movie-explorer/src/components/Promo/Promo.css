@@ -10,13 +10,14 @@
 }
 
 .promo__text-contaner{
-	max-width: 640px;
+	max-width: 680px;
 }
 
 .title {
 	font-weight: 400;
 	font-size: 50px;
 	line-height: 116%;
+	margin: 0 30px 36px 0;
 }
 
 .paragraph {
@@ -50,9 +51,7 @@
 	line-height: 133%;
 }
 
-
-
-@media all and (max-width:768px) {
+@media all and (max-width:890px) {
 	.promo {
 		padding: 140px 0 66px;
 	}
@@ -82,12 +81,12 @@
 		margin: 22px auto 0;
 	}
 	.promo__button {
-		margin: 92px 41.6% 10px;
+		margin: 92px 0 10px;
+		margin-left: calc((100% - 131px) / 2);
 	}
 }
 
-
-@media all and (max-width:320px) {
+@media all and (max-width:360px) {
 	.promo {
 		padding: 70px 0 30px;
 	}

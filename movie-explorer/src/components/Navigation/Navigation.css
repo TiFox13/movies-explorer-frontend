@@ -1,7 +1,6 @@
 .navigation {
   display: flex;
-
-width: 90%;
+  width: 90%;
   justify-content: space-between;
   align-items: center;
 }
@@ -14,9 +13,9 @@ width: 90%;
 }
 
 .menu {
- display: flex;
- justify-content: center;
- margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
 }
 
 .link-for-burger {
@@ -29,7 +28,7 @@ width: 90%;
   display: flex;
   justify-content: space-between;
   color: white;
-margin: 0;
+  margin: 0;
   font-weight: 500;
   font-size: 14px;
   line-height: 16px;
@@ -46,7 +45,7 @@ margin: 0;
 }
 
 .link-active {
-    font-weight: 500;
+  font-weight: 500;
 }
 
 .menu__toggle {
@@ -54,13 +53,12 @@ margin: 0;
   position: absolute;
 }
 
-
 @media all and (max-width:768px) {
   
   .navigation {
-    position: fixed;
+    position: absolute;
     width: 44.28%;
-    height: 100%;
+    height: calc(100% - 159px - 159px);
     top: 0;
     right: 0px;
     padding: 159px 90px;
@@ -91,33 +89,31 @@ margin: 0;
 
   }
 
-.link_account {
-margin: 621px auto 0;
-text-align: center;
-}
+  .link_account {
+    margin: 621px auto 0;
+    text-align: center;
+  }
 
   .link-active {
-   border-bottom: 2px solid white;
+    border-bottom: 2px solid white;
   }
 
   .menu__toggle {
     opacity: 0;
     display: block;
-    /* position:absolute; */
     z-index: 2;
     top: 15px;
     right: 35px;
+  }
 
-    }
-
-    .menu__burger {
+  .menu__burger {
     display: flex; 
     align-items: center;  
-    position: fixed; 
+    position: absolute; 
     top: 26px;
     right: 30px;
-background-color: rgba(0, 0, 0, 0);
-border-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 0;
     width: 28px;
     height: 23px;
     cursor: pointer;
@@ -125,46 +121,46 @@ border-radius: 0;
     background-image: url(../../images/burgerIcon.svg);
     object-fit: contain;
     background-position: center;
-    }
+  }
 
-    .menu__burger_active {
-      background-image: url(../../images/burgerIconOpened.svg);
-    }
-  
-    /* добавляем "гамбургер" */
-    /* .menu__btn > .burger__line,
-    .menu__btn > .burger__line::before,
-    .menu__btn > .burger__line::after {
-      display: block;
-      position: absolute;
-      width: 28px;
-      height: 3px;
-      background-color: white;
+  .menu__burger_active {
+    background-image: url(../../images/burgerIconOpened.svg);
+  }
 
-    }
-    .menu__btn > span::before {
-      content: '';
-      top: -8px;
-    }
-    .menu__btn > span::after {
-      content: '';
-      top: 8px;
-    }
+/* добавляем "гамбургер" */
+/* .menu__btn > .burger__line,
+.menu__btn > .burger__line::before,
+.menu__btn > .burger__line::after {
+  display: block;
+  position: absolute;
+  width: 28px;
+  height: 3px;
+  background-color: white;
 
-    .menu__toggle:checked ~ .menu__btn >  .burger__line {
-      transform: rotate(45deg);
-    }
-    .menu__toggle:checked ~ .menu__btn >  .burger__line::before {
-      top: 0;
-      transform: rotate(0);
-    }
-    .menu__toggle:checked ~ .menu__btn >  .burger__line::after {
-      top: 0;
-      transform: rotate(90deg);
-    } */
-    /* .menu__toggle:checked ~ .navigation {
-      visibility: visible;
-    }*/
+}
+.menu__btn > span::before {
+  content: '';
+  top: -8px;
+}
+.menu__btn > span::after {
+  content: '';
+  top: 8px;
+}
+
+.menu__toggle:checked ~ .menu__btn >  .burger__line {
+  transform: rotate(45deg);
+}
+.menu__toggle:checked ~ .menu__btn >  .burger__line::before {
+  top: 0;
+  transform: rotate(0);
+}
+.menu__toggle:checked ~ .menu__btn >  .burger__line::after {
+  top: 0;
+  transform: rotate(90deg);
+} */
+/* .menu__toggle:checked ~ .navigation {
+  visibility: visible;
+}*/
 } 
 
 
@@ -173,13 +169,18 @@ border-radius: 0;
     width: 100%;
     padding: 144px 0 0;
   }
+
   .link_nav {
     margin: 0 auto 20px;
   }
+
   .menu__burger {
     width: 22px;
     height: 22px;
+    right: 23px;
+    top: 27px;
   }
+  
   .link_account {
     margin: 444px auto 0;
   }

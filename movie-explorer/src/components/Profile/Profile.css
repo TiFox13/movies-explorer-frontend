@@ -41,7 +41,6 @@
 	color: #EE3465;
 }
 
-
 .profile__heading{
 	font-weight: 500;
 	font-size: 24px;
@@ -89,8 +88,6 @@
 	margin-bottom: 20px;
 }
 
-
-
 @media all and (max-width:768px) {
 	.profile {
 		padding: 236px 0 269px;
@@ -101,9 +98,7 @@
 	}
 }
 
-
-
-@media all and (max-width:320px) {
+@media all and (max-width:450px) {
 	.profile {
 		width: 260px;
 		padding: 70px 0 40px;

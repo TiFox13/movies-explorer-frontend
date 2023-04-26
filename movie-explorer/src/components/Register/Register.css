@@ -49,7 +49,6 @@
   text-align: center;
 }
 
-
 .register-paragraph {
   font-weight: 400;
   font-size: 14px;
@@ -80,31 +79,32 @@
   color: #EE3465; 
 }
 
-
 @media all and (max-width:768px) {
   .register {
     padding: 232px 0;
   }
 }
 
-
-
-@media all and (max-width:320px) {
+@media all and (max-width:450px) {
   .register {
     width: 260px;
     padding: 56px 0 30px;
     margin: 0 auto;
   }
-  .logo {
+
+  .logo_register {
     margin: 0 42%;
   }
+
   .form__heading{
     text-align: center;
     margin: 50px 0 80px;
   }
+
   .register-save-button {
     margin: 222px 0 14px;
   }
+
   .register-paragraph {
     font-size: 12px;
     line-height: 15px;

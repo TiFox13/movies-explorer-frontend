@@ -37,7 +37,6 @@
 	background-repeat: no-repeat;
 }
 
-
 @media all and (max-width:768px) {
 	.portfolio {
     padding: 0 50px 90px;
@@ -51,19 +50,22 @@
 }
 
 
-@media all and (max-width:320px) {
+@media all and (max-width:450px) {
 	.portfolio {
 		padding: 0 14px 70px;
 	}
+
 	.portfolio__title {
 		font-size: 14px;
 		line-height: 20px;
 		margin-bottom: 40px;
 	}
+
 	.link_portfolio {
 		font-size: 18px;
 	line-height: 156%;
 	}
+	
 	.portfolio-link-icon {
 		width: 18px;
 		height: 18px;

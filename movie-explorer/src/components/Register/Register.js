@@ -60,7 +60,7 @@ function Register({}) {
   return (
     <div className='register'>
       <Link to='/'>
-        <img className='logo' alt='логотип в виде зеленой баранки.' src={headerLogo}></img>
+        <img className='logo logo_register' alt='логотип в виде зеленой баранки.' src={headerLogo}></img>
       </Link>
       <form className='form' name='register' method='post' >
         <h2 className="form__heading">Добро пожаловать!</h2>
