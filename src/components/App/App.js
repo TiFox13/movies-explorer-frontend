@@ -20,7 +20,7 @@ function App() {
     <div className="page">
       <div className="page__content">
         <Routes>
-          <Route path='/' element={ <Main />} />
+          <Route path='/' element={<Main/> } />
 
           <Route path='/signup' element={ 
             <Register />
@@ -28,28 +28,6 @@ function App() {
 
           <Route path='/signin' element={
             <Login />
-          } />
-
-          <Route path='/movies' element={(
-            <>
-              <Header>
-                <Navigation linkMoviesActiveClass='link-active'/>
-              </Header>
-              <SearchForm />
-              <MoviesCardList />
-              <Footer />
-            </>
-            )} />
-
-          <Route path='/saved-movies' element={
-            <>
-              <Header>
-                <Navigation  linkActiveClass='link-active'/>
-              </Header>
-              <SearchForm />
-              <MoviesCardList deleteClass='delete-button' />
-              <Footer />
-            </>
           } />
 
           <Route path='/profile' element={
@@ -60,9 +38,37 @@ function App() {
               <Profile />
             </>
           } />
+
+          <Route path='/movies' element={(
+            <>
+              <Header>
+                <Navigation linkMoviesActiveClass='link-active'/>
+              </Header>
+              <main>
+                <SearchForm />
+                <MoviesCardList />
+              </main>
+              <Footer />
+            </>
+            )} />
+
+          <Route path='/saved-movies' element={
+            <>
+              <Header>
+                <Navigation  linkActiveClass='link-active'/>
+              </Header>
+              <main>
+                <SearchForm />
+                <MoviesCardList deleteClass='movie__button_delete' />
+              </main>
+              <Footer />
+            </>
+          } />
+
           <Route path='/error' element={
             <Error />
-          } />
+          } 
+          />
           
         </Routes>
       </div>

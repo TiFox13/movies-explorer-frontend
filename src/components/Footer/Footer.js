@@ -8,10 +8,10 @@ function Footer() {
       <p className='footer__paragraph'>Учебный проект Яндекс.Практикум х BeatFilm.</p>
 
       <div className='footer__info'>
-        <p className="copyright">&#169; 2023</p>
-        <div className='footer__author'>
-          <p className="author">Мозина Полина</p>
-          <a className='link link_footer' href='https://github.com/TiFox13'>Github</a>
+        <p className='copyright'>&#169; {new Date().getFullYear()}</p>
+        <div className='footer__links'>
+          <a className='link link_footer' href='https://practicum.yandex.ru/' target='_blank'>Яндекс.Практикум</a>
+          <a className='link link_footer' href='https://github.com/TiFox13' target='_blank'>Github</a>
         </div>
       </div>
     </footer>

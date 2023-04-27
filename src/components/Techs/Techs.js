@@ -11,26 +11,26 @@ function Techs() {
         <p className='paragraph_technologies'>На курсе веб-разработки мы освоили технологии, которые применили в дипломном проекте.</p>
       </div>
       <div className='techs-contaner'>
-        <div className='technologies-block'>
-          <p className='paragraph technologies__paragraph'>HTML</p>
+        <div className=' techs-contaner__block'>
+          <p className='paragraph  techs-contaner__paragraph'>HTML</p>
         </div>
-        <div className='technologies-block'>
-          <p className='paragraph technologies__paragraph'>CSS</p>
+        <div className='techs-contaner__block'>
+          <p className='paragraph techs-contaner__paragraph'>CSS</p>
         </div>
-        <div className='technologies-block'>
-          <p className='paragraph technologies__paragraph'>JS</p>
+        <div className='techs-contaner__block'>
+          <p className='paragraph techs-contaner__paragraph'>JS</p>
         </div>
-        <div className='technologies-block'>
-          <p className='paragraph technologies__paragraph'>React</p>
+        <div className='techs-contaner__block'>
+          <p className='paragraph techs-contaner__paragraph'>React</p>
         </div>
-        <div className='technologies-block'>
-          <p className='paragraph technologies__paragraph'>Git</p>
+        <div className='techs-contaner__block'>
+          <p className='paragraph techs-contaner__paragraph'>Git</p>
         </div>
-        <div className='technologies-block'>
-          <p className='paragraph technologies__paragraph'>Express.js</p>
+        <div className='techs-contaner__block'>
+          <p className='paragraph techs-contaner__paragraph'>Express.js</p>
         </div>
-        <div className='technologies-block'>
-          <p className='paragraph technologies__paragraph'>mongoDB</p>
+        <div className='techs-contaner__block'>
+          <p className='paragraph techs-contaner__paragraph'>mongoDB</p>
         </div>
       </div>
     </section>

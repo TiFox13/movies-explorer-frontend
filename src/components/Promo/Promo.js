@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from 'react-router-dom'
 
 import './Promo.css';
 
@@ -9,7 +9,7 @@ function Promo() {
 
   const navigate = useNavigate();
   const navigateMovies = (event) => {
-    navigate("/movies");
+    navigate('/movies');
   };
 
   return (

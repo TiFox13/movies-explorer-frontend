@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from 'react-router-dom'
 
 import './Profile.css';
 
@@ -65,29 +65,29 @@ function handleSubmit(e) {
 const navigate = useNavigate();
   
   const navigateLogin = (e) => {
-      navigate("/signin");
+      navigate('/signin');
   };
 
 
   return (
     <section className='profile'>
       <form className='profile-form' name='profile-form' method='post'>
-        <h2 className=" profile__heading">{`Привет, ${userName}!`}</h2>
+        <h2 className=' profile__heading'>{`Привет, ${userName}!`}</h2>
         <fieldset className='text-inputs-fieldset' disabled={!formActive}>
           <label className='profile-form__label'>
             Имя          
-            <input type="text"  className="profile-form__input" value={name} onChange={handleChangeName}/>
+            <input type='text' placeholder='Введите ваше новое имя' className='profile-form__input' value={name} onChange={handleChangeName}/>
           </label>
           <label className='profile-form__label'>
             E-mail
-            <input type="text"  className="profile-form__input" value={email} onChange={handleChangeEmail}/>
+            <input type='text' placeholder='Введите ваш новый email' className='profile-form__input' value={email} onChange={handleChangeEmail}/>
           </label>
         </fieldset>
 
-        <span className = "form__item-error name-input-error_profile">{nameError ||  emailError}</span>
-        <input type="button" onClick={handlePatchClick} className="button profile-button" value='Редактировать' aria-label="Редактировать" hidden={formActive}/>
-        <input type="submit"  onClick={handleSubmit} className=" button profile-save-button" value="Сохранить" aria-label="Сохранить" hidden={!formActive} disabled={!formValid}/>
-        <input type="button" onClick={navigateLogin} className="button profile-button profile-button_sign-out" value="Выйти из аккаунта" aria-label="Выйти из аккаунта" hidden={formActive}/>
+        <span className = 'form__item-error name-input-error_profile'>{nameError ||  emailError}</span>
+        <input type='button' onClick={handlePatchClick} className='button profile-button' value='Редактировать' aria-label='Редактировать' hidden={formActive}/>
+        <input type='submit'  onClick={handleSubmit} className=' button profile-save-button' value='Сохранить' aria-label='Сохранить' hidden={!formActive} disabled={!formValid}/>
+        <input type='button' onClick={navigateLogin} className='button profile-button profile-button_sign-out' value='Выйти из аккаунта' aria-label='Выйти из аккаунта' hidden={formActive}/>
       </form>
     </section>
 

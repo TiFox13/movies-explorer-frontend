@@ -23,7 +23,7 @@
 	justify-content: center;
 }
 
-.technologies-block {
+.techs-contaner__block {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -35,11 +35,11 @@
 
 }
 
-.technologies-block:last-child {
+.techs-contaner__block:last-child {
 	margin-right: 0px;
 }
 
-.technologies__paragraph {
+.techs-contaner__paragraph {
 	margin: 5px;
 	color: #FFFFFF;
 	opacity: 1;
@@ -72,12 +72,12 @@
 		line-height: 150%;
 	}
 
-	.technologies-block {
+	.techs-contaner__block {
 		width: 84px;
 		height: 57px;
 	}
 	
-	.technologies__paragraph {
+	.techs-contaner__paragraph {
 		font-size: 12px;
 		line-height: 15px;
 	}

@@ -1,7 +1,7 @@
 .error {
   display: grid;
   grid-template-rows: repeat(3, auto);
-  padding: 35.14vh 0 8.6vh;
+  padding: 246px 0 8.6vh;
 }
 
 .error__code {

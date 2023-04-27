@@ -4,13 +4,13 @@
   background-color: #222222;
 }
 
-.movie-info {
+.movie__contaner {
   display: flex;
   justify-content: space-between;
   padding: 14px;
 }
 
-.movie-name {
+.movie__name {
   margin: 0;
   font-weight: 500;
 font-size: 15px;
@@ -19,7 +19,7 @@ line-height: 18px;
 color: #FFFFFF;
 }
 
-.movie-duration {
+.movie__duration {
   margin: 9px 0 0;
   font-weight: 400;
   font-size: 11px;
@@ -28,7 +28,7 @@ color: #FFFFFF;
 color: #8B8B8B;
 }
 
-.favofite-button {
+.movie__button {
   width: 30px;
   height: 30px;
   background-color: #313131;
@@ -37,16 +37,17 @@ color: #8B8B8B;
   background-position: center;
   border-radius: 36px;
 }
-.favofite-button_active {
+
+.movie__button_active {
   background-color: #3DDC84;
   background-image: url(../../images/favoriteIcon-active.svg);
 }
 
-.delete-button {
+.movie__button_delete {
   background-image: url(../../images/delete-icon.svg);
 }
 
-.movie-image {
+.movie__image {
   width: 100%;
   max-height: 203px;
   object-fit: contain;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from 'react-router-dom'
 
 import './NavTab.css'
 
@@ -9,11 +9,11 @@ function NavTab() {
   const navigate = useNavigate();
   
   const navigateRegister = (event) => {
-      navigate("/signup");
+      navigate('/signup');
   };
 
   const navigateLogin = (event) => {
-      navigate("/signin");
+      navigate('/signin');
   };
 
   return (

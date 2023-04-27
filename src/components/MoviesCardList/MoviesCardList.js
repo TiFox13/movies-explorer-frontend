@@ -9,12 +9,12 @@ function MoviesCardList(props) {
   const [cardListOpenedClass, setCardListOpenedClass] = React.useState('')
   const [moreButtonHiddenClass, setMoreButtonHiddenClass] = React.useState('')
   function handleMoreButtonClick() {
-    setCardListOpenedClass('movies-card-list_opened');
-    setMoreButtonHiddenClass('more-button_hidden')
+    setCardListOpenedClass('card-list__movies_opened');
+    setMoreButtonHiddenClass('card-list__button_hidden')
   }
   return (
     <section className='card-list'>
-      <div className={`movies-card-list ${cardListOpenedClass}`}>
+      <div className={`card-list__movies ${cardListOpenedClass}`}>
         < MoviesCard name='33 слова о дизайне' duration='1ч 47м' image={movie1} deleteClass={props.deleteClass}/>
         < MoviesCard name='33 слова о дизайне' duration='1ч 47м' image={movie1} deleteClass={props.deleteClass}/>
         < MoviesCard name='33 слова о дизайне' duration='1ч 47м' image={movie1} deleteClass={props.deleteClass}/>
@@ -31,7 +31,7 @@ function MoviesCardList(props) {
         < MoviesCard name='33 слова о дизайне' duration='1ч 47м' image={movie1} deleteClass={props.deleteClass}/>
         < MoviesCard name='33 слова о дизайне' duration='1ч 47м' image={movie1} deleteClass={props.deleteClass}/>
       </div>
-      <button onClick={handleMoreButtonClick} className={`button more-button ${moreButtonHiddenClass}`}>Еще</button>
+      <button onClick={handleMoreButtonClick} className={`button card-list__button ${moreButtonHiddenClass}`}>Еще</button>
     </section>
 
   )

@@ -16,14 +16,14 @@ function MoviesCard({name, duration, image, deleteClass}) {
 
   return (
     <article className='movie'>
-        <div className='movie-info'>
-            <div className='text-container'>
-                <p className='movie-name'>{name}</p>
-                <p className='movie-duration'>{duration}</p>
-            </div>
-            <button onClick={handleFavorClick} className={isActive ? `button favofite-button ${deleteClass} favofite-button_active` : `button favofite-button ${deleteClass}`} /> 
+        <div className='movie__contaner'>
+          <div className='movie__text-container'>
+            <p className='movie__name'>{name}</p>
+            <p className='movie__duration'>{duration}</p>
+          </div>
+          <button onClick={handleFavorClick} className={isActive ? `button movie__button ${deleteClass} movie__button_active` : `button movie__button ${deleteClass}`} /> 
         </div>
-    <img className='movie-image' alt='кадр из фильма.' src={image}></img>
+    <img className='movie__image' alt='кадр из фильма.' src={image}></img>
     </article>
   )
 }
