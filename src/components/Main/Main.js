@@ -11,17 +11,19 @@ import NavTab from '../NavTab/NavTab.js'
 
 function Main() {
   return (
-  <main>
-    <Header class='main-header'>
-      <NavTab />
-    </Header>
-    <Promo />
-    <AboutProject />
-    <Techs />
-    <AboutMe />
-    <Portfolio />
-    <Footer />
-  </main>
+    <>
+      <Header class='main-header'>
+        <NavTab />
+      </Header>
+      <main> 
+        <Promo />
+        <AboutProject />
+        <Techs />
+        <AboutMe />
+        <Portfolio />
+      </main> 
+      <Footer />
+    </>
   )
 }
 

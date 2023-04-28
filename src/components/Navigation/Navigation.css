@@ -56,11 +56,12 @@
 @media all and (max-width:768px) {
   
   .navigation {
-    position: absolute;
+    position: fixed;
     width: 44.28%;
     padding: 0 90px;
     top: 0;
     right: 0px;
+    
     background-color: #202020;
     visibility: hidden;
     z-index: 1;
@@ -137,6 +138,7 @@
 
   .menu__burger_active {
     background-image: url(../../images/burgerIconOpened.svg);
+    position: fixed;
   }
 } 
 

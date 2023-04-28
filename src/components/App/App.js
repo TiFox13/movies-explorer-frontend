@@ -38,6 +38,11 @@ function App() {
               <Profile />
             </>
           } />
+          
+          <Route path='/error' element={
+                      <Error />
+                    } 
+                    />
 
           <Route path='/movies' element={(
             <>
@@ -65,10 +70,7 @@ function App() {
             </>
           } />
 
-          <Route path='/error' element={
-            <Error />
-          } 
-          />
+         
           
         </Routes>
       </div>
