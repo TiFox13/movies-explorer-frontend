@@ -8,6 +8,7 @@ import promoImage from '../../images/promoImage.svg';
 function Promo() {
 
   const navigate = useNavigate();
+  
   const navigateMovies = (event) => {
     navigate('/movies');
   };

@@ -3,11 +3,24 @@ import { useNavigate } from 'react-router-dom'
 
 import './Profile.css';
 
-function Profile() {
+import {CurrentUserContext} from '../../contexts/CurrentUserContext.js'
+
+
+
+
+function Profile({user}) {
   const [name, setName] = React.useState('Виталий');
   const [email, setEmail] = React.useState('pochta@yandex.ru');
   const [formActive, setFormActive] = React.useState(false)
   
+  const currentUser = React.useContext(CurrentUserContext);
+
+  // React.useEffect(() => {
+  //   setName(currentUser.name);
+  //   setEmail(currentUser.email);
+  // }, [currentUser]); 
+
+
 
   function handleChangeName(e) {
     setName(e.target.value);

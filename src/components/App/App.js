@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes} from 'react-router-dom';
+import { Route, Routes, useNavigate} from 'react-router-dom';
 
 import './App.css';
 
@@ -15,7 +15,118 @@ import Login from '../Login/Login';
 
 import Error from '../Error/Error';
 
+import { mainApi } from '../../utils/MainApi';
+import * as Auth from '../../utils/Auth';
+
 function App() {
+
+const navigate = useNavigate();
+// переменные состояния
+const [loggedIn, setLoggedIn] = React.useState(true);
+const [user, setUser] = React.useState({});
+const [currentUser, setCurrentUser] = React.useState([]);
+
+
+// забираем с сервера данные о пользователе
+React.useEffect(() => {
+  if (loggedIn) {
+    console.log('типа забрали')
+    // mainApi.getUserInfo()
+    // .then((res) => {
+    //   console.log(res)
+    //   setCurrentUser(res)
+    // })
+    // .catch((error) => {
+    //   console.log(error)  // выведем ошибку в консоль
+    // })
+  }
+}, [])
+
+// ПРОВЕРКА ТОКЕНА
+React.useEffect(() => {
+  const jwt = localStorage.getItem('jwt');
+  if (jwt) {
+    Auth.getToken(jwt)
+      .then((res) => {
+        setLoggedIn(true);
+        setUser(res);   //не записывается инфа про юзера
+
+        navigate('/');
+      })
+      .catch((error) => {
+        console.log(error); // выведем ошибку в консоль
+      })
+
+  }
+}, []);
+
+// ВЫХОД ИЗ ПРИЛОЖЕНИЯ
+function signOut() {
+  localStorage.removeItem('jwt');
+  setLoggedIn(false);
+  navigate('/sign-in');
+};
+
+
+const [massage, setMessage] = React.useState('');
+// const  [infoTooltipOpen, setInfoTooltipOpened] = React.useState(false);  //информационное окно. успешна регистрация/логин или нет
+const [statusForInfoTooltip, setStatusForInfoTooltip] =React.useState('')
+
+// function handleInfoTooltipOpen() {   // открытие информационного окна. успешна регистрация/логин или нет
+//   setInfoTooltipOpened(true);
+// }
+
+// РЕГИСТРАЦИЯ
+function handleRegister(name, email, password) {
+
+  Auth.register(name, email, password)
+    .then(() => {
+      setMessage('Вы успешно зарегистрировались!')
+      setStatusForInfoTooltip('ok')
+      // handleInfoTooltipOpen() // открытие информационного окна. успешна регистрация/логин или нет
+    })
+    .catch(() => {
+      setMessage('Что-то пошло не так! Попоробуйте еще раз.')
+      setStatusForInfoTooltip('no')
+      // handleInfoTooltipOpen() // открытие информационного окна. успешна регистрация/логин или нет
+    })
+}
+
+
+// ЛОГИН
+function handleLogin(email, password ) {
+  Auth.login(email, password)
+    .then((data) => {      
+      if (data.token){
+        localStorage.setItem('jwt', data.token)
+        setLoggedIn(true)
+      }
+    })
+    .then(()=> {
+      Auth.getToken(localStorage.getItem('jwt'))
+        .then((res) =>{
+          setUser(res.data);
+          navigate('/movies') // перенаправление на фильмы
+        })
+    .then(() => {
+      
+    })
+        .catch((error) => {
+          console.log(error); // выведем ошибку в консоль
+        }) 
+  })
+    .catch(() => {
+      setMessage('Что-то пошло не так! Попоробуйте еще раз.')
+      setStatusForInfoTooltip('no')
+      // handleInfoTooltipOpen() // открытие информационного окна. успешна регистрация/логин или нет
+    })
+    setMessage('')  
+}
+
+
+
+
+
   return (
     <div className="page">
       <div className="page__content">
@@ -23,11 +134,11 @@ function App() {
           <Route path='/' element={<Main/> } />
 
           <Route path='/signup' element={ 
-            <Register />
+            <Register handleSubmit={handleRegister} />
           } />
 
           <Route path='/signin' element={
-            <Login />
+            <Login handleSubmit={handleLogin}/>
           } />
 
           <Route path='/profile' element={
@@ -35,7 +146,7 @@ function App() {
               <Header>
                 <Navigation  profileLinkActiveClass='link-active' />
               </Header>
-              <Profile />
+              <Profile  user={currentUser}/>
             </>
           } />
           
