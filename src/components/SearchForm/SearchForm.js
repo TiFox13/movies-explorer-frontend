@@ -3,9 +3,15 @@ import React from 'react';
 import './SearchForm.css';
 import foundIcon from '../../images/foundIcon.svg';
 
-function SearchForm() {
+function SearchForm({handleSubmit}) {
+
+  function submit(e) {
+    e.preventDefault();
+    handleSubmit();
+  }
+  
   return (
-    <form className='search-form'>
+    <form className='search-form' onSubmit={submit}>
       <img className='search-icon' alt='иконка поиска.' src={foundIcon}></img>
       <input className='search-input' type='text' placeholder='Фильм'></input>
       <button className='button search-button'></button>

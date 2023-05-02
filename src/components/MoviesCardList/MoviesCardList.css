@@ -24,10 +24,16 @@
   margin: 80px 0 0;
 }
 
+@media all and (max-width:1000px) {
+  .card-list {
+    margin: 0 50px;
+  }
+}
+
 @media all and (max-width:900px) {
   .card-list {
     padding: 70px 0 80px;
-    margin: 0 30px;
+    margin: 0 50px;
   }
   .card-list__movies {
     grid-template-columns: repeat(2, 1fr);
@@ -57,7 +63,8 @@
   }
 }
 
-@media all and (max-width:500px) {
+
+@media all and (max-width:620px) {
   .card-list {
     padding: 40px 0 0px;
     margin: 0 10px;

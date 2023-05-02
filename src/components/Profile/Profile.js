@@ -1,32 +1,28 @@
 import React, {useEffect} from 'react';
-import { useNavigate } from 'react-router-dom'
-
 import './Profile.css';
 
 import {CurrentUserContext} from '../../contexts/CurrentUserContext.js'
 
 
 
-
-function Profile({user}) {
+function Profile({onUpdate, signOut}) {
   const [name, setName] = React.useState('Виталий');
   const [email, setEmail] = React.useState('pochta@yandex.ru');
   const [formActive, setFormActive] = React.useState(false)
   
   const currentUser = React.useContext(CurrentUserContext);
 
-  // React.useEffect(() => {
-  //   setName(currentUser.name);
-  //   setEmail(currentUser.email);
-  // }, [currentUser]); 
-
+  React.useEffect(() => {
+    setName(currentUser.name);
+    setEmail(currentUser.email);
+  }, [currentUser]); 
 
 
   function handleChangeName(e) {
     setName(e.target.value);
   }
   function handleChangeEmail(e) {
-    setEmail(e.target.value);
+    setEmail(e.target.value)
   }
 
   function handlePatchClick() {
@@ -67,25 +63,16 @@ function handleChangeEmail(e) {
   }
 }
 
-const [userName, setUserName] = React.useState('Виталий');
-
 function handleSubmit(e) {
   e.preventDefault();
-  setUserName(name);
-  setFormActive(false);
+  onUpdate({name, email})
+
 }
-
-const navigate = useNavigate();
-  
-  const navigateLogin = (e) => {
-      navigate('/signin');
-  };
-
 
   return (
     <section className='profile'>
       <form className='profile-form' name='profile-form' method='post'>
-        <h2 className=' profile__heading'>{`Привет, ${userName}!`}</h2>
+        <h2 className=' profile__heading'>{`Привет, ${currentUser.name}!`}</h2>
         <fieldset className='text-inputs-fieldset' disabled={!formActive}>
           <label className='profile-form__label'>
             Имя          
@@ -100,7 +87,7 @@ const navigate = useNavigate();
         <span className = 'form__item-error name-input-error_profile'>{nameError ||  emailError}</span>
         <input type='button' onClick={handlePatchClick} className='button profile-button' value='Редактировать' aria-label='Редактировать' hidden={formActive}/>
         <input type='submit'  onClick={handleSubmit} className=' button profile-save-button' value='Сохранить' aria-label='Сохранить' hidden={!formActive} disabled={!formValid}/>
-        <input type='button' onClick={navigateLogin} className='button profile-button profile-button_sign-out' value='Выйти из аккаунта' aria-label='Выйти из аккаунта' hidden={formActive}/>
+        <input type='button' onClick={signOut} className='button profile-button profile-button_sign-out' value='Выйти из аккаунта' aria-label='Выйти из аккаунта' hidden={formActive}/>
       </form>
     </section>
 

@@ -9,7 +9,6 @@ import './Register.css';
 function Register({handleSubmit}) {
   const nameIsRequire = true;
 
-
   const [userData, setUserData] = React.useState({
     name: '',
     email: '',
