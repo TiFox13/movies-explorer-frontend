@@ -2,10 +2,10 @@ import React from 'react';
 
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import { mainApi } from '../../utils/MainApi';
 
 
-function Movies({getMovies}) {
-  
+function Movies({ getMovies,  saveMovie, deleteMovie}) {
 
 function handleSearch() {
   getMovies()
@@ -14,7 +14,7 @@ function handleSearch() {
   return (
     <main>
     <SearchForm handleSubmit={handleSearch}/>
-    <MoviesCardList />
+    <MoviesCardList  saveMovie={saveMovie} deleteMovie={deleteMovie}/>
   </main>
   )
 }

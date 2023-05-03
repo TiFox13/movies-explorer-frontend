@@ -48,11 +48,56 @@
     )
   }
 
-  // ДОБАВИТЬ ФИЛЬМ В СОХРАНЕННЫЕ  post
+  getSavedMovies() {
+    return this._request(`${this._url}/movies`,
+    {
+      headers: {
+        authorization: `Bearer ${this._token}`,
+        "Content-type": 'application/json',
+      },
+      method: "GET"
+    }
+  )
+  }
 
+  // ДОБАВИТЬ ФИЛЬМ В СОХРАНЕННЫЕ
+  saveMovie(movie) {
+    return this._request(`${this._url}/movies`,
+      {
+        method: "POST",
+        headers: {
+          "Content-type": 'application/json',
+          authorization: `Bearer ${this._token}`,
+        },
+        body: JSON.stringify({
+          country: movie.country,
+          director: movie.director,
+          duration: movie.duration,
+          year: movie.year,
+          description: movie.description,
+          image: `https://api.nomoreparties.co/${movie.image.url}`,
+          trailerLink: movie.trailerLink,
+          thumbnail: `https://api.nomoreparties.co/${movie.image.url}`,  //все бы хорошо, поле обязательное, но его в базе у объектов НЕТ!
+          nameRU: movie.nameRU,
+          nameEN: movie.nameEN,
+          movieId: movie.id, // тоже нет в объектах с сервера
+          // owner: "req.user._id",
+        })
+      }
+    )
+  }
 
-  // УДАЛИТЬ ФИЛЬМ ИЗ СОХРАНЕННЫХ  delete
-
+  // УДАЛИТЬ ФИЛЬМ ИЗ СОХРАНЕННЫХ 
+deleteMovie(movie) {
+  return this._request(`${this._url}/movies/${movie}`,
+  {
+    method: "DELETE",
+    headers: {
+      "Content-type": 'application/json',
+      authorization: `Bearer ${this._token}`,
+    }
+  })
+}
  } 
 
 //подключаем API

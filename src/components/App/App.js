@@ -5,6 +5,7 @@ import './App.css';
 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { CurrentMovieContext } from '../../contexts/CurrentMovieContext'
+import { CurrentSavedMoviesContext } from '../../contexts/CurrentSavedMoviesContext';
 
 import Main from '../Main/Main';
 import Header from '../Header/Header';
@@ -80,10 +81,8 @@ function signOut() {
   navigate('/signin');
 };
 
-
 const [message, setMessage] = React.useState('');
 const [infoTooltipOpen, setInfoTooltipOpened] = React.useState(false);  //информационное окно. успешна регистрация/логин или нет
-// const [statusForInfoTooltip, setStatusForInfoTooltip] =React.useState('')  // переменнная для определения картинки в попапе, но я пока не хочу картинку
 
 function handleInfoTooltipOpen() {   // открытие информационного окна. успешна регистрация/логин или нет
   setInfoTooltipOpened(true);
@@ -98,12 +97,10 @@ function handleRegister(name, email, password) {
   Auth.register(name, email, password)
     .then(() => {
       setMessage('Вы успешно зарегистрировались!')
-      // setStatusForInfoTooltip('ok')  // кусок для класса, который добавлял бы картинку в попап. но я пока не хочу картинку
       handleInfoTooltipOpen() // открытие информационного окна. успешна регистрация/логин или нет
     })
     .catch(() => {
       setMessage('Что-то пошло не так! Попоробуйте еще раз.')
-      // setStatusForInfoTooltip('no')  // кусок для класса, который добавлял бы картинку в попап. но я пока не хочу картинку
       handleInfoTooltipOpen() // открытие информационного окна. успешна регистрация/логин или нет
     })
 }
@@ -124,22 +121,17 @@ function handleLogin(email, password) {
           setCurrentUser(res.data);
           navigate('/movies') // перенаправление на фильмы
         })
-////////////////////////////////////////////////
-    // .then(() => {
-
-    // })
-///////////////////////////////////////////////////////
         .catch((error) => {
           console.log(error); // выведем ошибку в консоль
         }) 
   })
     .catch(() => {
       setMessage('Что-то пошло не так! Попоробуйте еще раз.')
-      // setStatusForInfoTooltip('no')  // кусок для класса, который добавлял бы картинку в попап. но я пока не хочу картинку
       handleInfoTooltipOpen() // открытие информационного окна. успешна регистрация/логин или нет
     })
     setMessage('')  
 }
+
 
 // обновление информации о пользователе
 function handleUpdateUser({name, email}) {
@@ -152,26 +144,88 @@ function handleUpdateUser({name, email}) {
   })
 }
 
-// получение фильмов
 
+const storageMovies = JSON.parse(localStorage.getItem('movies')) || [];
+// получение фильмов
 function handleGetMovies() {
-  moviesApi.getMovies()
+  // если в хранилище еще нет фильном, то их надо получить
+  if (!storageMovies.length) {
+    moviesApi.getMovies()
   .then((res) => {
+    // мы получили все фильмы.
     setMovies(res);
-    console.log(res)
+
+// сохраняем фильмы в локальном хранилище
+  localStorage.setItem('movies', JSON.stringify(res))
+    //( а еще надо так же сохранить состояние преключателя
+
+    // и текст запроса)
+
   })
   .catch((error) => {
     console.log(error) // выведем ошибку в консоль
   })
-}
-
-function createMovie() {
-
-}
-
-function deleteMovie() {
+} else {
+  // если они есть, то
+  setMovies(storageMovies)
   
 }
+
+  }
+  
+
+//при перезагрузке данные берутся уже не с сервера а из локального хранилища
+
+// РАБОТА С СОХРАНЕННЫМИ КАРТОЧКАМИ
+
+  const [savedMoviesList, setSavedMoviesList] = React.useState([])
+
+    // Получение массива сохраненных фильмов
+    React.useEffect(() => {
+      if (loggedIn) {
+        mainApi.getSavedMovies()
+          .then((res) => {
+            setSavedMoviesList(res);
+          })
+          .catch(err => {
+            console.log(err);
+          })
+      }
+    }, [loggedIn]);
+    
+
+  // function saveMovie(thisMovie) {
+      // mainApi.saveMovie(thisMovie)
+      // .then((res) => {
+      //   setSavedMoviesList([res, ...savedMoviesList])
+      // })
+      // .then((res) => {
+        // setIsSaved(true);
+      // })
+      // .catch((err) => {
+      //   console.log(err)
+      // })
+    // }
+    // function deleteMovie(thisMovie) {
+    //   const savedMovie = savedMoviesList.find((item) => {
+    //     if (item.movieId === thisMovie.id) {
+    //       return item
+    //     } else {
+    //       return savedMoviesList
+    //     }
+  
+    //   })     
+  // mainApi.deleteMovie(savedMovie._id)
+  //     .then((res) => {
+  //       console.log('удалили');
+        // setIsSaved(false);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err)
+  //     })
+    // }
+  
+
 
 
 
@@ -222,7 +276,11 @@ function deleteMovie() {
               </Header>
 
 <CurrentMovieContext.Provider value={currentMovie}>
-              <Movies getMovies={handleGetMovies}/>
+  <CurrentSavedMoviesContext.Provider value={{savedMoviesList, setSavedMoviesList}}>
+     <Movies  getMovies={handleGetMovies}  />
+  </CurrentSavedMoviesContext.Provider>
+             
+
 </CurrentMovieContext.Provider>
 
               <Footer />
@@ -234,10 +292,16 @@ function deleteMovie() {
               <Header>
                 <Navigation  linkActiveClass='link-active'/>
               </Header>
-              <main>
+<CurrentMovieContext.Provider value={currentMovie}>
+<CurrentSavedMoviesContext.Provider value={{savedMoviesList, setSavedMoviesList}}>
+    <Movies  getMovies={handleGetMovies}  deleteClass='movie__button_delete'  />
+</CurrentSavedMoviesContext.Provider>
+            
+</CurrentMovieContext.Provider>
+              {/* <main>
                 <SearchForm />
                 <MoviesCardList deleteClass='movie__button_delete' />
-              </main>
+              </main> */}
               <Footer />
             </>
           } />

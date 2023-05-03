@@ -2,11 +2,11 @@ import React from 'react';
 
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
-import movie1 from '../../images/movie1.svg'
+
 
 import { CurrentMovieContext } from '../../contexts/CurrentMovieContext';
 
-function MoviesCardList({deleteClass}) {
+function MoviesCardList({  deleteClass, saveMovie, deleteMovie}) {
 
   const currentMovie = React.useContext(CurrentMovieContext);
 
@@ -40,11 +40,18 @@ function MoviesCardList({deleteClass}) {
     return [...currentMovie.slice(0, movieCounter)];
   }
 
+
+        // // Сравнение фильмов и проверка на лайк
+        // function getSavedMovieCard(savedMoviesList, movie) {
+        //  return savedMoviesList.find(savedMovie => savedMovie.movieId === movie.id)
+        // };
+
+
   return (
     <section className='card-list'>
       <div className={`card-list__movies ${cardListOpenedClass}`}>
       {renderMovies().map((item) => (
-        <MoviesCard name={item.nameRU} duration={item.duration} image={`https://api.nomoreparties.co/${item.image.url}`} deleteClass={deleteClass}/> 
+        <MoviesCard  thisMovie={item} name={item.nameRU} duration={item.duration} image={`https://api.nomoreparties.co/${item.image.url}`} deleteClass={deleteClass} saveMovie={saveMovie} deleteMovie={deleteMovie}/> 
         )
         )}
       </div>
