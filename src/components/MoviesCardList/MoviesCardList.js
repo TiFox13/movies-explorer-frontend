@@ -4,25 +4,23 @@ import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 
-import { CurrentMovieContext } from '../../contexts/CurrentMovieContext';
+function MoviesCardList({movies, saveMovie, deleteMovie, deleteClass}) {
 
-function MoviesCardList({  deleteClass, saveMovie, deleteMovie}) {
-
-  const currentMovie = React.useContext(CurrentMovieContext);
-
+///////////////////////////////////////
   const [cardListOpenedClass, setCardListOpenedClass] = React.useState('')
+  //////////////////////////////////////
   const [moreButtonIsHidden, setMoreButtonIsHidden] = React.useState(true)
   const [movieCounter, setMovieCounter] = React.useState(3)
 
   React.useEffect(() => {
-  if (currentMovie != 0) {
+  if (movies != 0) {
     setMoreButtonIsHidden(false)
   }
-  if (movieCounter + 3 >= currentMovie.length){
-    console.log(currentMovie.length)
+  if (movieCounter + 3 >= movies.length){
+    console.log(movies.length)
     setMoreButtonIsHidden(true)
   }
-  }, [currentMovie, movieCounter])
+  }, [movies, movieCounter])
 
 
   function handleMoreButtonClick() {
@@ -31,21 +29,12 @@ function MoviesCardList({  deleteClass, saveMovie, deleteMovie}) {
     setCardListOpenedClass('card-list__movies_opened');
 ////////////////////////////////////////
 
-    setMovieCounter(movieCounter + 50)
+    setMovieCounter(movieCounter + 3)
   }
-
-  
 
   function renderMovies() {
-    return [...currentMovie.slice(0, movieCounter)];
+    return [...movies.slice(0, movieCounter)];
   }
-
-
-        // // Сравнение фильмов и проверка на лайк
-        // function getSavedMovieCard(savedMoviesList, movie) {
-        //  return savedMoviesList.find(savedMovie => savedMovie.movieId === movie.id)
-        // };
-
 
   return (
     <section className='card-list'>

@@ -8,7 +8,15 @@ function MoviesCard({ thisMovie, name, duration, image, deleteClass, saveMovie, 
 
   const {savedMoviesList, setSavedMoviesList} = React.useContext(CurrentSavedMoviesContext);
 
+// когда фильм отрисовывается, проверим, сохранял ли его себе пользователь?
+  React.useEffect(() => {
+    const isSaved = savedMoviesList.some(savedMovie => savedMovie.movieId === thisMovie.id)
+    if (isSaved) {
+      return setIsSaved(true);
+    }
+  }, [])
 
+// приводит длительность фильма в нужный вид
 function formatDuration(time) {
     const hours = Math.trunc(time / 60);
     const minutes = time % 60;
@@ -18,7 +26,7 @@ function formatDuration(time) {
 
   const [isSaved, setIsSaved] = React.useState(false)
 
-
+// сохранить фильм
 function saveMovie() {
       mainApi.saveMovie(thisMovie)
       .then((res) => {
@@ -31,6 +39,8 @@ function saveMovie() {
         console.log(err)
       })
     }
+
+// удалить фильм
     function deleteMovie() {
       const savedMovie = savedMoviesList.find((item) => {
         if (item.movieId === thisMovie.id) {
@@ -49,7 +59,8 @@ function saveMovie() {
         console.log(err)
       })
     }
-    
+
+// переключатель сохранить/удалить
   function handleSaveClick() {
     if (!isSaved) {
       saveMovie(thisMovie)

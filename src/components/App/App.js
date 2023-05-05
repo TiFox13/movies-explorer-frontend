@@ -11,11 +11,10 @@ import Main from '../Main/Main';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Navigation from '../Navigation/Navigation';
-import MoviesCardList from '../MoviesCardList/MoviesCardList';
+
 
 import Movies from '../Movies/Movies';
-
-import SearchForm from '../SearchForm/SearchForm';
+import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
@@ -145,11 +144,13 @@ function handleUpdateUser({name, email}) {
 }
 
 
-const storageMovies = JSON.parse(localStorage.getItem('movies')) || [];
+// const storageMovies = JSON.parse(localStorage.getItem('movies')) || [];
+
+
 // получение фильмов
 function handleGetMovies() {
   // если в хранилище еще нет фильном, то их надо получить
-  if (!storageMovies.length) {
+  // if (!storageMovies.length) {
     moviesApi.getMovies()
   .then((res) => {
     // мы получили все фильмы.
@@ -165,11 +166,11 @@ function handleGetMovies() {
   .catch((error) => {
     console.log(error) // выведем ошибку в консоль
   })
-} else {
-  // если они есть, то
-  setMovies(storageMovies)
+// } else {
+//   // если они есть, то
+//   setMovies(storageMovies)
   
-}
+// }
 
   }
   
@@ -277,7 +278,7 @@ function handleGetMovies() {
 
 <CurrentMovieContext.Provider value={currentMovie}>
   <CurrentSavedMoviesContext.Provider value={{savedMoviesList, setSavedMoviesList}}>
-     <Movies  getMovies={handleGetMovies}  />
+     <Movies />
   </CurrentSavedMoviesContext.Provider>
              
 
@@ -294,14 +295,10 @@ function handleGetMovies() {
               </Header>
 <CurrentMovieContext.Provider value={currentMovie}>
 <CurrentSavedMoviesContext.Provider value={{savedMoviesList, setSavedMoviesList}}>
-    <Movies  getMovies={handleGetMovies}  deleteClass='movie__button_delete'  />
-</CurrentSavedMoviesContext.Provider>
-            
+               <SavedMovies getMovies={handleGetMovies}  deleteClass='movie__button_delete'/>
+</CurrentSavedMoviesContext.Provider>     
 </CurrentMovieContext.Provider>
-              {/* <main>
-                <SearchForm />
-                <MoviesCardList deleteClass='movie__button_delete' />
-              </main> */}
+
               <Footer />
             </>
           } />
