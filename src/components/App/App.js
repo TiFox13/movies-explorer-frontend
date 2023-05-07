@@ -4,7 +4,7 @@ import { Route, Routes, useNavigate} from 'react-router-dom';
 import './App.css';
 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import { CurrentMovieContext } from '../../contexts/CurrentMovieContext'
+import { CurrentMoviesContext } from '../../contexts/CurrentMoviesContext';
 import { CurrentSavedMoviesContext } from '../../contexts/CurrentSavedMoviesContext';
 
 import Main from '../Main/Main';
@@ -33,9 +33,6 @@ const navigate = useNavigate();
 const [loggedIn, setLoggedIn] = React.useState(true);
 // const [user, setUser] = React.useState({});
 const [currentUser, setCurrentUser] = React.useState([]);
-
-// фильмы
-const [currentMovie, setMovies] = React.useState([]);
 
 
 
@@ -132,7 +129,7 @@ function handleLogin(email, password) {
 }
 
 
-// обновление информации о пользователе
+// ОБНОВЛЕНИЕ ИНФОРМАЦИИ О ПОЛЬЗОВАТЕЛЕ
 function handleUpdateUser({name, email}) {
   mainApi.patchUserInfo({name, email})
   .then((res) => {
@@ -144,13 +141,22 @@ function handleUpdateUser({name, email}) {
 }
 
 
-// const storageMovies = JSON.parse(localStorage.getItem('movies')) || [];
 
 
-// получение фильмов
-function handleGetMovies() {
-  // если в хранилище еще нет фильном, то их надо получить
-  // if (!storageMovies.length) {
+
+//////////////////////////////////////////////////////////
+// РАБОТА С ФИЛЬМАМИ
+/////////////////////////////////////////////////////////
+
+
+// все фильмы
+const [currentMovies, setMovies] = React.useState(JSON.parse(localStorage.getItem('movies')) || []);
+
+
+// ПОЛУЧЕНИЕ ФИЛЬМОВ
+  React.useEffect(() => {
+// если в хранилище еще нет фильмов, то их надо получить
+  if (!currentMovies.length) {
     moviesApi.getMovies()
   .then((res) => {
     // мы получили все фильмы.
@@ -158,26 +164,18 @@ function handleGetMovies() {
 
 // сохраняем фильмы в локальном хранилище
   localStorage.setItem('movies', JSON.stringify(res))
-    //( а еще надо так же сохранить состояние преключателя
-
-    // и текст запроса)
 
   })
   .catch((error) => {
     console.log(error) // выведем ошибку в консоль
   })
-// } else {
-//   // если они есть, то
-//   setMovies(storageMovies)
-  
-// }
-
   }
-  
+}, [])
 
-//при перезагрузке данные берутся уже не с сервера а из локального хранилища
 
-// РАБОТА С СОХРАНЕННЫМИ КАРТОЧКАМИ
+////////////////////////////////////////////////
+// РАБОТА С СОХРАНЕННЫМИ ФИЛЬМАМИ
+//////////////////////////////////////////////
 
   const [savedMoviesList, setSavedMoviesList] = React.useState([])
 
@@ -187,47 +185,156 @@ function handleGetMovies() {
         mainApi.getSavedMovies()
           .then((res) => {
             setSavedMoviesList(res);
+            // // сохраняем фильмы в локальном хранилище
+            // localStorage.setItem('savedMovies', JSON.stringify(res))
           })
           .catch(err => {
             console.log(err);
           })
       }
-    }, [loggedIn]);
+    }, []);
     
 
-  // function saveMovie(thisMovie) {
-      // mainApi.saveMovie(thisMovie)
-      // .then((res) => {
-      //   setSavedMoviesList([res, ...savedMoviesList])
-      // })
-      // .then((res) => {
-        // setIsSaved(true);
-      // })
-      // .catch((err) => {
-      //   console.log(err)
-      // })
-    // }
-    // function deleteMovie(thisMovie) {
-    //   const savedMovie = savedMoviesList.find((item) => {
-    //     if (item.movieId === thisMovie.id) {
-    //       return item
-    //     } else {
-    //       return savedMoviesList
-    //     }
-  
-    //   })     
-  // mainApi.deleteMovie(savedMovie._id)
-  //     .then((res) => {
-  //       console.log('удалили');
-        // setIsSaved(false);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err)
-  //     })
-    // }
-  
+    
+// СОХРАНИТЬ ФИЛЬМ
+function saveMovie(movie) {  
+
+  mainApi.saveMovie(movie)
+  .then((res) => {
+    setSavedMoviesList([...savedMoviesList, res])
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+}
+
+// УДАЛИТЬ ФИЛЬМ
+function deleteMovie(movie) {
+  console.log("movie еще не вошли в find", movie)
+  const savedMovie = savedMoviesList.find((item) => {
+    if (item.movieId === movie.id || item.movieId === movie.movieId) {
+      console.log("да")
+       return item
+    }
+  })     
+
+mainApi.deleteMovie(savedMovie._id)
+  .then((res) => {
+    const newMoviesList = savedMoviesList.filter((m) => {
+     return ( savedMovie._id !== m._id)
+    })
+    console.log("newMoviesList",newMoviesList)
+    setSavedMoviesList(newMoviesList);
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+}
 
 
+////////////////////////////////////////////////////////
+// ФИЛЬТРАЦИЯ ФИЛЬМОВ
+////////////////////////////////////////////////////////
+
+// чекбокс 
+const [isChecked, setIsChecked] = React.useState(JSON.parse(localStorage.getItem('checkbox')));
+// сюда будем кидать отфильтрованные фильмы
+  const [filteredMovies, setFilteredMovies] = React.useState(JSON.parse(localStorage.getItem('filteredMovies')) || [])
+  const [filteredSavedMovies, setFilteredSavedMovies] = React.useState(JSON.parse(localStorage.getItem('filteredSavedMovies')) || [])
+// переменная для ошибки
+const [notFound, setIsNotFound] = React.useState(true);
+const [errorMessage, setIsErrorMessage] = React.useState(true);
+// загрузка
+const [isLoading, setIsLoading] = React.useState(false);
+
+// меняет состояние чекбокса
+function onChangeCheckbox() {
+  setIsChecked(!isChecked);
+}
+
+// обновляет localStorage для чекбокса и фильмов
+React.useEffect (() => {
+  localStorage.setItem('checkbox', JSON.stringify(isChecked));
+  localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
+}, [isChecked, filteredMovies])
+
+  //фильтр по ключевым словам
+  function filterKeyword(movies, key) {
+    let filteredByKeywordMovies = [];
+    movies.forEach((movie) => {
+      if (movie.nameRU.toLowerCase().includes(key.toLowerCase())) {
+        filteredByKeywordMovies.push(movie);
+      }
+    });
+    return filteredByKeywordMovies;
+  }
+
+  //фильтр фильмов по времени
+  function filterShortMovies(movies) {
+      return  movies.filter((movie) => {
+        return movie.duration <= 40;
+      })
+  }
+
+  // общий фильтр
+  function filterMovies( key) {
+    localStorage.setItem('key', JSON.stringify(key))
+    // ищем по ключевому слову
+    const filteredByKeywordMovies = filterKeyword(currentMovies, key);
+
+    //высветить ошибку, если мы ничего не нашли
+    if (filteredByKeywordMovies.length !== 0) {
+      setIsNotFound(true);
+    } else {
+      setIsNotFound(false);
+    }
+ 
+    //ищем короткие фильмы, если нужно
+    if (isChecked) {
+      const filteredShortMovies = filterShortMovies(filteredByKeywordMovies);
+      if (filteredShortMovies.length === 0) {
+        setIsNotFound(true);
+        setFilteredMovies(filteredShortMovies);
+      } else {
+        setIsNotFound(true);
+        setFilteredMovies(filteredShortMovies);
+      }
+    } else {
+      setFilteredMovies(filteredByKeywordMovies);
+    }
+  }
+
+// фильтр для сохраненных фильмов
+
+  function filterSavedMovies(key) {
+    localStorage.setItem('key', JSON.stringify(key))
+    const filteredByKeywordMovies = filterKeyword(savedMoviesList, key);
+    if (filteredByKeywordMovies.length === 0) {
+      setIsNotFound(false);
+    } else {
+      setIsNotFound(true);
+    }
+
+    if (isChecked) {
+      const filteredShortMovies = filterShortMovies(filteredByKeywordMovies);
+      if (filteredShortMovies.length === 0) {
+        setIsNotFound(true);
+        setFilteredSavedMovies(filteredShortMovies);
+      } else {
+        setIsNotFound(true);
+        setFilteredSavedMovies(filteredShortMovies);
+      }
+    } else {
+      setFilteredSavedMovies(filteredByKeywordMovies);
+    }
+  }
+
+  // function submitSearch(key) {
+  //   localStorage.setItem('key', JSON.stringify(key))
+
+  //   filterMovies( key)
+
+  // }
 
 
   return (
@@ -275,15 +382,21 @@ function handleGetMovies() {
               <Header>
                 <Navigation linkMoviesActiveClass='link-active'/>
               </Header>
+     <Movies 
+      filteredMovies={filteredMovies}
+      savedMoviesList={savedMoviesList}
 
-<CurrentMovieContext.Provider value={currentMovie}>
-  <CurrentSavedMoviesContext.Provider value={{savedMoviesList, setSavedMoviesList}}>
-     <Movies />
-  </CurrentSavedMoviesContext.Provider>
-             
+      saveMovie={saveMovie}
+      deleteMovie={deleteMovie}
+      submitSearch={filterMovies}
 
-</CurrentMovieContext.Provider>
+      isChecked={isChecked}
+      isLoading={isLoading}
+      onChangeCheckbox={onChangeCheckbox}
 
+      errorMessage={errorMessage}
+      notFound={notFound}
+     />
               <Footer />
             </>
             )} />
@@ -293,11 +406,25 @@ function handleGetMovies() {
               <Header>
                 <Navigation  linkActiveClass='link-active'/>
               </Header>
-<CurrentMovieContext.Provider value={currentMovie}>
-<CurrentSavedMoviesContext.Provider value={{savedMoviesList, setSavedMoviesList}}>
-               <SavedMovies getMovies={handleGetMovies}  deleteClass='movie__button_delete'/>
-</CurrentSavedMoviesContext.Provider>     
-</CurrentMovieContext.Provider>
+
+    <SavedMovies 
+setIsNotFound={setIsNotFound}
+
+    setFilteredSavedMovies={setFilteredSavedMovies}
+      deleteClass='movie__button_delete'
+      filteredSavedMovies={filteredSavedMovies}
+      savedMoviesList={savedMoviesList}
+      submitSearch={filterSavedMovies}
+      deleteMovie={deleteMovie}
+      saveMovie={saveMovie}
+
+      isChecked={isChecked}
+      isLoading={isLoading}
+      onChangeCheckbox={onChangeCheckbox}
+
+      errorMessage={errorMessage}
+      notFound={notFound}
+    />
 
               <Footer />
             </>

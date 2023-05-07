@@ -1,20 +1,26 @@
 import React, {useState} from 'react';
 
 import './MoviesCard.css';
-import { CurrentSavedMoviesContext } from '../../contexts/CurrentSavedMoviesContext';
-import { mainApi } from '../../utils/MainApi';
 
-function MoviesCard({ thisMovie, name, duration, image, deleteClass, saveMovie, deleteMovie}) {
 
-  const {savedMoviesList, setSavedMoviesList} = React.useContext(CurrentSavedMoviesContext);
+function MoviesCard({ 
+  
+  filteredMovies,
+  isSaved,
+  key,
+  savedMoviesList,
+  thisMovie, 
+  name, 
+  duration, 
+  image, 
+  deleteClass, 
 
-// когда фильм отрисовывается, проверим, сохранял ли его себе пользователь?
-  React.useEffect(() => {
-    const isSaved = savedMoviesList.some(savedMovie => savedMovie.movieId === thisMovie.id)
-    if (isSaved) {
-      return setIsSaved(true);
-    }
-  }, [])
+  saveMovie, 
+  deleteMovie}) {
+
+React.useEffect(() => {
+  console.log(key)
+}, [])
 
 // приводит длительность фильма в нужный вид
 function formatDuration(time) {
@@ -24,50 +30,34 @@ function formatDuration(time) {
     return `${hours}ч ${minutes}м`;
   };
 
-  const [isSaved, setIsSaved] = React.useState(false)
 
-// сохранить фильм
-function saveMovie() {
-      mainApi.saveMovie(thisMovie)
-      .then((res) => {
-        setSavedMoviesList([res, ...savedMoviesList])
-      })
-      .then((res) => {
-        setIsSaved(true);
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-    }
+  const [isliked, setIsLiked] = React.useState(false)
 
-// удалить фильм
-    function deleteMovie() {
-      const savedMovie = savedMoviesList.find((item) => {
-        if (item.movieId === thisMovie.id) {
-          return item
-        } else {
-          return savedMoviesList
-        }
+  // когда фильм отрисовывается, проверим, сохранял ли его себе пользователь?
+    React.useEffect(() => {
+      const isliked = savedMoviesList.some((savedMovie) => savedMovie.movieId === thisMovie.id);  
+      setIsLiked(isliked)
+    }, [savedMoviesList, filteredMovies])
   
-      })     
-  mainApi.deleteMovie(savedMovie._id)
-      .then((res) => {
-
-  setIsSaved(false);
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-    }
 
 // переключатель сохранить/удалить
   function handleSaveClick() {
-    if (!isSaved) {
+    if (!isliked) {
       saveMovie(thisMovie)
+      setIsLiked(true)
     } else {
   deleteMovie(thisMovie)
+  setIsLiked(false)
     }
+    }
+  
+
+  function handleDeleteClick() {
+    deleteMovie(thisMovie)
+    setIsLiked(false)
   }
+
+
 
   return (
     <article className='movie'>
@@ -76,7 +66,7 @@ function saveMovie() {
             <p className='movie__name'>{name}</p>
             <p className='movie__duration'>{formatDuration(duration)}</p>
           </div>
-          <button onClick={handleSaveClick} className={isSaved ? `button movie__button  movie__button_active` : `button movie__button ${deleteClass}`} /> 
+          <button onClick={isliked || isSaved ? handleDeleteClick : handleSaveClick} className={isliked ? `button movie__button  movie__button_active` : `button movie__button ${deleteClass}`} /> 
         </div>
     <img className='movie__image' alt={name} src={image}></img>
     </article>
