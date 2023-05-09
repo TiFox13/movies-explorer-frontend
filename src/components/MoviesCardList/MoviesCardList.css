@@ -54,10 +54,10 @@
     margin: 0 30px;
   }
   
-  .card-list__movies {
+  /* .card-list__movies {
     height: 1090px;
     overflow: hidden;
-  }
+  } */
 
   .card-list__button_hidden {
     display: none;
@@ -80,7 +80,7 @@
     padding: 0;
     grid-template-columns: 1fr;
     justify-items: center;
-    height: 1192px;
+    /* height: 1192px; */
   }
 
   .card-list__movies_opened {

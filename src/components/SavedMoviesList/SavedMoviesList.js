@@ -1,55 +1,52 @@
 import React from 'react';
 
 import MoviesCard from '../MoviesCard/MoviesCard';
-
+import { searchMessages } from '../../utils/constants';
 
 function SavedMoviesList({
-  setIsNotFound,
+  setIsFound,
+  isFound,
   setFilteredSavedMovies,
   filteredSavedMovies,
   savedMoviesList,
   deleteMovie,
-
   saveMovie,
-
   deleteClass,
   errorMessage,
-  notFound,
 }) {
 
+  const [notSaved, setNotSaved] = React.useState(true);
 
   React.useEffect(() => {
-    setIsNotFound(true);
+    setIsFound(true);
     setFilteredSavedMovies(savedMoviesList);
+    if (savedMoviesList.length !== 0) {
+      setNotSaved(false);
+    }
   }, [savedMoviesList])
-
 
 
   return (
     <section className='card-list'>
-      <p hidden={errorMessage} className='card-list__error'>
-        Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.
-      </p>
-      <p hidden={notFound} className='card-list__error'>
-        Ничего не найдено
-      </p>
-    <div className={`card-list__movies ${''}`}>
-    { filteredSavedMovies.map((item) => (
-      <MoviesCard
-      saveMovie={saveMovie}  
-      isSaved={true}
-      filteredSavedMovies={filteredSavedMovies} 
-      savedMoviesList={savedMoviesList}
-        thisMovie={item} 
-
-        
-        name={item.nameRU} 
-        duration={item.duration} 
-        image={`${item.image}`} 
-        deleteClass={deleteClass} 
-        deleteMovie={deleteMovie}/> 
-      )
-      )}
+      <p hidden={errorMessage} className='card-list__error'>{searchMessages.SEARCH_ERROR}</p>
+      <p hidden={isFound} className='card-list__error'>{searchMessages.NOT_FOUND}</p>
+      <p hidden={!notSaved} className='card-list__error'>{searchMessages.NOT_SAVED}</p>
+      <div className={`card-list__movies ${''}`}>
+        { filteredSavedMovies.map((item) => (
+          <MoviesCard
+            key={item.movieId}
+            saveMovie={saveMovie}  
+            isSaved={true}
+            filteredSavedMovies={filteredSavedMovies} 
+            savedMoviesList={savedMoviesList}
+            thisMovie={item} 
+            name={item.nameRU} 
+            duration={item.duration} 
+            image={`${item.image}`} 
+            deleteClass={deleteClass} 
+            deleteMovie={deleteMovie}/> 
+        )
+        )}
     </div>
   </section>
   )

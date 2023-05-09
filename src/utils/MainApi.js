@@ -2,7 +2,6 @@
   constructor(object) {
     this._url = object.url;  //тут будет адрес для запроса
     this._headers = object.headers;
-    this._token = object.token; 
   }
 
   // штука от дублирования кода
@@ -23,9 +22,7 @@
   getUserInfo() {
     return this._request(`${this._url}/users/me`,
       {
-        headers: 
-          // authorization: `Bearer ${this._token}`,
-          this._headers,
+        headers: this._headers,
         method: "GET"
       }
     )
@@ -35,11 +32,8 @@
   patchUserInfo({name, email}) {
     return this._request(`${this._url}/users/me`,
       {
+        headers: this._headers,
         method: "PATCH",
-        headers: {
-          "Content-type": 'application/json',
-        authorization: `Bearer ${this._token}`,
-        },
         body: JSON.stringify({
           name: name,
           email: email
@@ -51,10 +45,7 @@
   getSavedMovies() {
     return this._request(`${this._url}/movies`,
     {
-      headers: {
-        authorization: `Bearer ${this._token}`,
-        "Content-type": 'application/json',
-      },
+      headers: this._headers,
       method: "GET"
     }
   )
@@ -64,11 +55,8 @@
   saveMovie(movie) {
     return this._request(`${this._url}/movies`,
       {
+        headers: this._headers,
         method: "POST",
-        headers: {
-          "Content-type": 'application/json',
-          authorization: `Bearer ${this._token}`,
-        },
         body: JSON.stringify({
           country: movie.country,
           director: movie.director,
@@ -77,11 +65,10 @@
           description: movie.description,
           image: `https://api.nomoreparties.co/${movie.image.url}`,
           trailerLink: movie.trailerLink,
-          thumbnail: `https://api.nomoreparties.co/${movie.image.url}`,  //все бы хорошо, поле обязательное, но его в базе у объектов НЕТ!
+          thumbnail: `https://api.nomoreparties.co/${movie.image.url}`,
           nameRU: movie.nameRU,
           nameEN: movie.nameEN,
-          movieId: movie.id, // тоже нет в объектах с сервера
-          // owner: "req.user._id",
+          movieId: movie.id, 
         })
       }
     )
@@ -91,20 +78,17 @@
 deleteMovie(movie) {
   return this._request(`${this._url}/movies/${movie}`,
   {
+    headers: this._headers,
     method: "DELETE",
-    headers: {
-      "Content-type": 'application/json',
-      authorization: `Bearer ${this._token}`,
-    }
   })
 }
  } 
 
 //подключаем API
  export const mainApi = new MainApi({
-  token: localStorage.getItem('jwt'),
   url: "http://localhost:3000",
   headers: {
+    authorization: `Bearer ${localStorage.getItem('jwt')}`,
     "Content-type": 'application/json'
   }
 });

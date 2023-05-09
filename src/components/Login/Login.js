@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom'; 
 
 import headerLogo from '../../images/headerLogo.svg';
@@ -6,29 +6,12 @@ import Form from '../Form/Form';
 
 import './Login.css';
 
-function Login({handleSubmit}) {
+function Login({handleSubmit, isLoading}) {
+
   const nameIsRequire = false;
-  const  [userData, setUserData] = React.useState({
-    password: '',
-    email: '',
-  })
 
-  function handleChange(e){
-    const {name, value} = e.target;
-
-    setUserData({
-      ...userData,
-      [name]: value
-    })
-  }
-
-  function submit(){
-    if (!userData.email || !userData.password){
-      return;
-    }
-
-    handleSubmit(userData.email, userData.password)
-     setUserData({ password: '', email: ''});
+  function submit(values){
+    handleSubmit( values.email, values.password )
   }
 
   return (
@@ -36,7 +19,7 @@ function Login({handleSubmit}) {
       <Link to='/'>
         <img className='logo logo_login' alt='логотип в виде зеленой баранки.' src={headerLogo}></img>
       </Link>  
-      <Form hiddenClass='name-input-field_hidden' name='login' title='Рады видеть!' buttonText='Войти' handleSubmit={submit} userData={userData} handleChange={handleChange} isRequire={nameIsRequire}/>
+      <Form hiddenClass='name-input-field_hidden' name='login' title='Рады видеть!' buttonText='Войти' handleSubmit={submit} isRequire={nameIsRequire} isLoading={isLoading}/>
         <p className='login-paragraph'>Eще не зарегистрированы?  <Link to='/signup' className='link link_login'>Регистрация</Link></p>
       </div>
   )

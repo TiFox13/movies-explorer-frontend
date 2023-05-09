@@ -1,26 +1,45 @@
 import React from 'react';
 
-import './SearchForm.css';
 import foundIcon from '../../images/foundIcon.svg';
+import { useForm } from '../../hooks/useForm';
+
+import './SearchForm.css';
 
 function SearchForm({handleSubmit, onChange, isChecked}) {
 
-  const [value, setValue] = React.useState(JSON.parse(localStorage.getItem('key')) || '')
+  const {
+    values,
+    handleChange,
+    isValid,
+    setValues,
+  } = useForm();
 
-function handleChange(e) {
-  setValue(e.target.value)
-}
+  const value= localStorage.getItem('key')
+  const [errorText, setErrorText] = React.useState('Фильм');
+  
+  React.useEffect(() => {
+    setValues({search: value})
+  }, []); 
+
+  React.useEffect(() => {
+    if (isValid) {
+      setErrorText('Фильм');
+    }
+  }, [isValid]);
 
   function submit(e) {
     e.preventDefault();
-    handleSubmit(value);
+    if (!isValid) {
+      setErrorText("Нужно ввести ключевое слово");
+      return;
+    }
+    handleSubmit(values.search);
   }
 
-  
   return (
-    <form className='search-form' onSubmit={submit}>
+    <form className='search-form' onSubmit={submit} noValidate>
       <img className='search-icon' alt='иконка поиска.' src={foundIcon}></img>
-      <input className='search-input' type='text' placeholder='Фильм' onChange={handleChange} value={value}></input>
+      <input className='search-input' type='text' required placeholder={errorText} minLength='1' onChange={handleChange} name='search' id ='search-input' value={values.search}></input>
       <button className='button search-button'></button>
       <div className='line'></div>
       <label className='checkbox'>
