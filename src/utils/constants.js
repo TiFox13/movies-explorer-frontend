@@ -1,3 +1,5 @@
+export const BASE_URL = 'https://84.201.172.248'
+
 export const VALIDATION = {
   name: {
     minLength: 2,

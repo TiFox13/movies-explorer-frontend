@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://84.201.172.248';
+import { BASE_URL } from "./constants";
 
 // ответы сервера 
 const getResponse = (res) => {

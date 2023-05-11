@@ -1,3 +1,5 @@
+ import { BASE_URL } from "./constants";
+
  class MainApi {
   constructor(object) {
     this._url = object.url;  //тут будет адрес для запроса
@@ -86,7 +88,7 @@ deleteMovie(movie) {
 
 //подключаем API
  export const mainApi = new MainApi({
-  url: "https://84.201.172.248",
+  url: BASE_URL,
   headers: {
     authorization: `Bearer ${localStorage.getItem('jwt')}`,
     "Content-type": 'application/json'
