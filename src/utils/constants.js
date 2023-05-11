@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://84.201.172.248'
+export const BASE_URL = 'https://api.ti.fox.movies-explore.nomoredomains.monster'
 
 export const VALIDATION = {
   name: {
