@@ -86,7 +86,7 @@ deleteMovie(movie) {
 
 //подключаем API
  export const mainApi = new MainApi({
-  url: "http://localhost:3000",
+  url: "https://84.201.172.248",
   headers: {
     authorization: `Bearer ${localStorage.getItem('jwt')}`,
     "Content-type": 'application/json'

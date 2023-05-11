@@ -5,6 +5,8 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader'
 
 function Movies({ 
+  filterShortAllMovies,
+setFilteredMovies,
   filteredMovies,
   savedMoviesList,
   saveMovie,
@@ -17,6 +19,18 @@ function Movies({
   isFound,
   deleteClass
 }) {
+
+  React.useEffect(() => {
+    if (isChecked) {
+      filterShortAllMovies(filteredMovies)
+    } 
+    else {
+      const movies = JSON.parse(localStorage.getItem('filteredMovies'))
+      if (movies !== null) {
+        return setFilteredMovies(movies)
+      } 
+    }
+  }, [])
 
   return (
     <main>

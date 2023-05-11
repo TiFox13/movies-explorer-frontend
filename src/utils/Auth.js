@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost:3000';
+export const BASE_URL = 'http://84.201.172.248';
 
 // ответы сервера 
 const getResponse = (res) => {

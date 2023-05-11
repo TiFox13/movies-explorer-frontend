@@ -63,7 +63,7 @@ if (width <= breakpoints.SCREEN_M) {
 
   return (
     <section className='card-list'>
-       <p hidden={errorMessage} className='card-list__error'>{searchMessages.SEARCH_ERROR}</p>
+       <p hidden={!errorMessage} className='card-list__error'>{searchMessages.SEARCH_ERROR}</p>
       <p hidden={isFound} className='card-list__error'>{searchMessages.NOT_FOUND}</p>
       <div className={`card-list__movies`}>
         {renderMovies().map((item) => (

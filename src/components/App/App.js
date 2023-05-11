@@ -23,7 +23,6 @@ import { mainApi } from '../../utils/MainApi';
 import { moviesApi } from '../../utils/MoviesApi';
 import * as Auth from '../../utils/Auth';
 
-
 function App() {
 
 const navigate = useNavigate();
@@ -60,8 +59,6 @@ function signOut() {
   setLoggedIn(false);
   navigate('/');
 };
-
-
 
 // информационное окно. успешна регистрация/логин или нет
 const [infoTooltipOpen, setInfoTooltipOpened] = React.useState(false);  
@@ -149,15 +146,28 @@ function handleUpdateUser({name, email}) {
 // РАБОТА С ФИЛЬМАМИ
 /////////////////////////////////////////////////////////
 
+// чекбокс 
+const [isChecked, setIsChecked] = React.useState(JSON.parse(localStorage.getItem('checkbox')));
+// сюда будем кидать отфильтрованные фильмы
+const [filteredMovies, setFilteredMovies] = React.useState(JSON.parse(localStorage.getItem('filteredMovies')) || [])
+const [filteredSavedMovies, setFilteredSavedMovies] = React.useState(JSON.parse(localStorage.getItem('filteredSavedMovies')) || [])
 // все фильмы
 const [currentMovies, setMovies] = React.useState(JSON.parse(localStorage.getItem('movies')) || []);
 // сохраненные фильмы
 const [savedMoviesList, setSavedMoviesList] = React.useState([])
 
+  // переменные для ошибок
+  const [isFound, setIsFound] = React.useState(true);
+  const [errorMessage, setIsErrorMessage] = React.useState(false);
+  // загрузка
+  const [isLoading, setIsLoading] = React.useState(false);
+
+
 // ПОЛУЧЕНИЕ ФИЛЬМОВ
   React.useEffect(() => {
 // если в хранилище еще нет фильмов, то их надо получить
-  if (loggedIn && !currentMovies.length) {
+  if (!currentMovies.length) {
+    setIsLoading(true)
     return moviesApi.getMovies()
       .then((res) => {
         setMovies(res);
@@ -166,6 +176,10 @@ const [savedMoviesList, setSavedMoviesList] = React.useState([])
       })
       .catch((error) => {
         console.log(error) // выведем ошибку в консоль
+        setIsErrorMessage(true)
+      })
+      .finally(() => {
+        setIsLoading(false)
       })
   }
 }, [loggedIn])
@@ -176,9 +190,11 @@ const [savedMoviesList, setSavedMoviesList] = React.useState([])
       mainApi.getSavedMovies()
         .then((res) => {
           setSavedMoviesList(res);
+          localStorage.setItem('filteredSavedMovies', JSON.stringify(res));
         })
         .catch(err => {
           console.log(err);
+          setIsErrorMessage(true)
         })
     }
   }, [loggedIn]);
@@ -222,26 +238,27 @@ const [savedMoviesList, setSavedMoviesList] = React.useState([])
 // ФИЛЬТРАЦИЯ ФИЛЬМОВ
 ////////////////////////////////////////////////////////
 
-  // чекбокс 
-  const [isChecked, setIsChecked] = React.useState(JSON.parse(localStorage.getItem('checkbox')));
-  // сюда будем кидать отфильтрованные фильмы
-  const [filteredMovies, setFilteredMovies] = React.useState(JSON.parse(localStorage.getItem('filteredMovies')) || [])
-  const [filteredSavedMovies, setFilteredSavedMovies] = React.useState(JSON.parse(localStorage.getItem('filteredSavedMovies')) || [])
-  // переменные для ошибок
-  const [isFound, setIsFound] = React.useState(true);
-  const [errorMessage, setIsErrorMessage] = React.useState(true);
-  // загрузка
-  const [isLoading, setIsLoading] = React.useState(false);
-
   // меняет состояние чекбокса
-  function onChangeCheckbox() {
+  function onChangeCheckboxAllMovies() {
     setIsChecked(!isChecked);
+    if (!isChecked) {
+      filterShortAllMovies(filteredMovies)
+    } else {
+      setFilteredMovies(JSON.parse(localStorage.getItem('filteredMovies')))
+    }
   }
-
+  function onChangeCheckboxSavedMovies() {
+    setIsChecked(!isChecked);
+    if (!isChecked) {
+      filterShortSavedMovies(filteredSavedMovies)
+    } else {
+      setIsFound(true);
+      setFilteredSavedMovies(JSON.parse(localStorage.getItem('filteredSavedMovies')))
+    }
+  }
   // обновляет localStorage для чекбокса и фильмов
   React.useEffect (() => {
     localStorage.setItem('checkbox', JSON.stringify(isChecked));
-    localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
   }, [isChecked, filteredMovies])
 
   // фильтр по ключевым словам
@@ -257,58 +274,70 @@ const [savedMoviesList, setSavedMoviesList] = React.useState([])
 
   //фильтр фильмов по времени
   function filterShortMovies(movies) {
-    return  movies.filter((movie) => {
+ if (movies.length !== 0) {
+    const filteredShortMovies = movies.filter((movie) => {
       return movie.duration <= 40;
     })
+    return filteredShortMovies
   }
+}
+
+ function filterShortAllMovies(movies) {
+  const filteredShortMovies = filterShortMovies(movies)
+     if (filteredShortMovies.length === 0) {
+       setIsFound(false);
+       setFilteredMovies(filteredShortMovies);
+     } else {
+       setIsFound(true);
+       setFilteredMovies(filteredShortMovies);
+     }
+   }
 
   // ФИЛЬТР ДЛЯ ВСЕХ ФИЛЬМОВ
   function filterMovies( key) {
+
     localStorage.setItem('key', key)
     // ищем по ключевому слову
     const filteredByKeywordMovies = filterKeyword(currentMovies, key);
+    localStorage.setItem('filteredMovies', JSON.stringify(filteredByKeywordMovies));
     //высветить ошибку, если мы ничего не нашли
     if (filteredByKeywordMovies.length !== 0) {
       setIsFound(true);
     } else {
       setIsFound(false);
     }
+    setFilteredMovies(filteredByKeywordMovies);
     //ищем короткие фильмы, если нужно
     if (isChecked) {
-      const filteredShortMovies = filterShortMovies(filteredByKeywordMovies);
-      if (filteredShortMovies.length === 0) {
-        setIsFound(false);
-        setFilteredMovies(filteredShortMovies);
-      } else {
-        setIsFound(true);
-        setFilteredMovies(filteredShortMovies);
-      }
-    } else {
-      setFilteredMovies(filteredByKeywordMovies);
+      return filterShortAllMovies(filteredByKeywordMovies);
+
     }
   }
 
+   function filterShortSavedMovies(movies) {
+    const filteredShortMovies = filterShortMovies(movies)
+    if (filteredShortMovies.length === 0) {
+      setIsFound(false);
+      setFilteredSavedMovies(filteredShortMovies);
+    } else {
+      setIsFound(true);
+      setFilteredSavedMovies(filteredShortMovies);
+    }
+     }
+     
   // ФИЛЬТР ДЛЯ СОХРАНЕННЫХ ФИЛЬМОВ
   function filterSavedMovies(key) {
     localStorage.setItem('key', key)
     const filteredByKeywordMovies = filterKeyword(savedMoviesList, key);
+    localStorage.setItem('filteredSavedMovies', JSON.stringify(filteredByKeywordMovies));
     if (filteredByKeywordMovies.length === 0) {
       setIsFound(false);
     } else {
       setIsFound(true);
     }
-
+    setFilteredSavedMovies(filteredByKeywordMovies);
     if (isChecked) {
-      const filteredShortMovies = filterShortMovies(filteredByKeywordMovies);
-      if (filteredShortMovies.length === 0) {
-        setIsFound(false);
-        setFilteredSavedMovies(filteredShortMovies);
-      } else {
-        setIsFound(true);
-        setFilteredSavedMovies(filteredShortMovies);
-      }
-    } else {
-      setFilteredSavedMovies(filteredByKeywordMovies);
+      filterShortSavedMovies(filteredByKeywordMovies)
     }
   }
 
@@ -345,6 +374,8 @@ const [savedMoviesList, setSavedMoviesList] = React.useState([])
                 <Navigation linkMoviesActiveClass='link-active'/>
               </Header>
               <Movies 
+                filterShortAllMovies={filterShortAllMovies}
+                setFilteredMovies={setFilteredMovies}
                 filteredMovies={filteredMovies}
                 savedMoviesList={savedMoviesList}
                 saveMovie={saveMovie}
@@ -352,7 +383,7 @@ const [savedMoviesList, setSavedMoviesList] = React.useState([])
                 submitSearch={filterMovies}
                 isChecked={isChecked}
                 isLoading={isLoading}
-                onChangeCheckbox={onChangeCheckbox}
+                onChangeCheckbox={onChangeCheckboxAllMovies}
                 errorMessage={errorMessage}
                 isFound={isFound}
               />
@@ -369,6 +400,8 @@ const [savedMoviesList, setSavedMoviesList] = React.useState([])
               <SavedMovies 
                 setIsFound={setIsFound}
 
+                filterShortSavedMovies={filterShortSavedMovies}
+
                 setFilteredSavedMovies={setFilteredSavedMovies}
                 deleteClass='movie__button_delete'
                 filteredSavedMovies={filteredSavedMovies}
@@ -378,7 +411,7 @@ const [savedMoviesList, setSavedMoviesList] = React.useState([])
                 saveMovie={saveMovie}
                 isChecked={isChecked}
                 isLoading={isLoading}
-                onChangeCheckbox={onChangeCheckbox}
+                onChangeCheckbox={onChangeCheckboxSavedMovies}
                 errorMessage={errorMessage}
                 isFound={isFound}
               />

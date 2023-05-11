@@ -5,6 +5,8 @@ import SavedMoviesList from '../SavedMoviesList/SavedMoviesList';
 import Preloader from '../Preloader/Preloader'
 
 function SavedMovies({ 
+  filterShortSavedMovies,
+
   setIsFound,
   setFilteredSavedMovies,
   savedMoviesList,
@@ -18,6 +20,12 @@ function SavedMovies({
   errorMessage,
   isFound
 }) {
+
+  React.useEffect(() => {
+    if (isChecked) {
+      filterShortSavedMovies(filteredSavedMovies)
+    }
+  }, [])
 
   return (
     <main>

@@ -28,7 +28,7 @@ function SavedMoviesList({
 
   return (
     <section className='card-list'>
-      <p hidden={errorMessage} className='card-list__error'>{searchMessages.SEARCH_ERROR}</p>
+      <p hidden={!errorMessage} className='card-list__error'>{searchMessages.SEARCH_ERROR}</p>
       <p hidden={isFound} className='card-list__error'>{searchMessages.NOT_FOUND}</p>
       <p hidden={!notSaved} className='card-list__error'>{searchMessages.NOT_SAVED}</p>
       <div className={`card-list__movies ${''}`}>
