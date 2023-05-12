@@ -5,8 +5,9 @@ import SavedMoviesList from '../SavedMoviesList/SavedMoviesList';
 import Preloader from '../Preloader/Preloader'
 
 function SavedMovies({ 
+  filterKeyword,
+  filterShortAllMovies,
   filterMovies,
-  setIsFound,
   setFilteredSavedMovies,
   savedMoviesList,
   filteredSavedMovies,
@@ -14,38 +15,54 @@ function SavedMovies({
   deleteMovie,
 
   isLoading,
-
   errorMessageSavedMovies,
-  isFound
 }) {
 
-const [isShort, setIsShort] = React.useState(false);
-const [key, setKey] = React.useState('');
+  const [isShort, setIsShort] = React.useState(false);
+  const [key, setKey] = React.useState('');
+  const [isFound, setIsFound] = React.useState(true);
 
-function onChangeCheckboxMovies() {
-  setIsShort(!isShort);
-  if (filteredSavedMovies.length !== 0) {
-    const filteredMovies = filterAllMovies(key, !isShort) 
-  } else {
-    setFilteredSavedMovies(filterMovies(savedMoviesList, key))
+  React.useEffect(() => {
+    if (filteredSavedMovies.length !== 0) {
+      setIsFound(true); 
+    }
+    }, [setIsFound, filteredSavedMovies])  
+
+  function onChangeCheckboxMovies() {
+    setIsShort(!isShort);
+    if (filteredSavedMovies.length !== 0) {  
+      const filteredMovies = filterAllMovies(key, !isShort) 
+    } else {
+      setFilteredSavedMovies(filterMovies(savedMoviesList, key))
+    }
   }
-}
 
-// локальная функция для модуля SavedMovies   
-function filterAllMovies(key, isShort) {
-  const filteredMovies = filterMovies(savedMoviesList, key, isShort)
-  if (filteredMovies.length !== 0) {
-    setIsFound(true);  
-  } else {
-    setIsFound(false);
+  // локальная функция для модуля Movies   
+  function filterAllMovies(key, isShort) {
+    const filteredByKeywordMovies = filterKeyword(savedMoviesList, key);// ищем по ключевому слову
+    if (filteredByKeywordMovies.length !== 0) {
+      setIsFound(true);  
+    } else {
+      setIsFound(false);
+    }
+    
+    if (isShort) {
+      const filteredMovies = filterShortAllMovies(filteredByKeywordMovies, isShort)
+      setFilteredSavedMovies(filteredMovies)
+      if (filteredMovies.length !== 0) {
+        setIsFound(true);  
+      } else {
+        setIsFound(false);
+      }
+    } else {
+      setFilteredSavedMovies(filteredByKeywordMovies)
+    }
   }
-  setFilteredSavedMovies(filteredMovies)
-}
 
-function submitSearch(key) {
-  setKey(key)
-  filterAllMovies(key, isShort)
-}
+  function submitSearch(key) {
+    setKey(key)
+    filterAllMovies(key, isShort)
+  }
 
   return (
     <main>

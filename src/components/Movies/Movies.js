@@ -5,35 +5,38 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader'
 
 function Movies({ 
+  filterKeyword,
   filterMovies,
-  setIsFound,
+  filterShortAllMovies,
   currentMovies,
   setFilteredMovies,
-  filterShortAllMovies,
   filteredMovies,
   savedMoviesList,
   saveMovie,
   deleteMovie,
   isLoading,
   errorMessageMovies,
-  isFound,
   deleteClass
 }) {
 
   const [isChecked, setIsChecked] = React.useState(JSON.parse(localStorage.getItem('checkbox')) || false)
   const [key, setKey] = React.useState(localStorage.getItem('key') || '')
-
+  const [isFound, setIsFound] = React.useState(true);
 
   React.useEffect(() => {
     if (isChecked) {
-      const filterMovies = filterShortAllMovies(filteredMovies)
-
       const movies = JSON.parse(localStorage.getItem('filteredMovies'))
       if (movies !== null) {
         return setFilteredMovies(movies)
-      } 
+      }   
     }
   }, [])
+
+  React.useEffect(() => {
+    if (filteredMovies.length !== 0) {
+      setIsFound(true); 
+    }
+    }, [setIsFound, filteredMovies])  
 
   function onChangeCheckboxAllMovies() {
        setIsChecked(!isChecked);
@@ -41,32 +44,41 @@ function Movies({
        if (filteredMovies.length !== 0) {
        const filteredShortMovies = filterAllMovies(key, !isChecked)
     } else {
-      if (key !== '') {
-        const filteredMovies = filterMovies(currentMovies, key, !isChecked)
-      // localStorage.setItem('filteredMovies', JSON.stringify(filteredShortMovies));
-        return setFilteredMovies(filteredMovies)
-      }
+      setFilteredMovies(filterMovies(currentMovies, key))
     }
   }
 
   // локальная функция для модуля Movies   
-function filterAllMovies(key, isShort) {
-  const filteredMovies = filterMovies(currentMovies, key, isShort)
-  if (filteredMovies.length !== 0) {
-    setIsFound(true);  
-  } else {
-    setIsFound(false);
+  function filterAllMovies(key, isShort) {
+    const filteredByKeywordMovies = filterKeyword(currentMovies, key);// ищем по ключевому слову
+    localStorage.setItem('filteredMovies', JSON.stringify(filteredByKeywordMovies));
+    if (filteredByKeywordMovies.length !== 0) {
+      setIsFound(true);  
+    } else {
+      setIsFound(false);
+    }
+    
+    if (isShort) {
+      const filteredMovies = filterShortAllMovies(filteredByKeywordMovies, isShort)
+      localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
+      setFilteredMovies(filteredMovies)
+
+      if (filteredMovies.length !== 0) {
+        setIsFound(true);  
+      } else {
+        setIsFound(false);
+      }
+
+    } else {
+      setFilteredMovies(filteredByKeywordMovies)
+    }
   }
-  localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
-  setFilteredMovies(filteredMovies)
 
- }
-
-function submitSearch(key) {
-  setKey(key)
-  localStorage.setItem('key', key)
-  filterAllMovies(key, isChecked)
-}
+  function submitSearch(key) {
+    setKey(key)
+    localStorage.setItem('key', key)
+    filterAllMovies(key, isChecked)
+  }
 
   return (
     <main>
@@ -86,7 +98,6 @@ function submitSearch(key) {
           isFound={isFound}
         />
     }
-    
   </main>
   )
 }

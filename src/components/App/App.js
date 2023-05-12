@@ -27,7 +27,6 @@ function App() {
 
 const navigate = useNavigate();
 
-
 const [loggedIn, setLoggedIn] = React.useState(false);
 // пользователь
 const [currentUser, setCurrentUser] = React.useState({});
@@ -39,9 +38,6 @@ const [filteredSavedMovies, setFilteredSavedMovies] = React.useState(JSON.parse(
 const [currentMovies, setMovies] = React.useState(JSON.parse(localStorage.getItem('movies')) || {});
 // сохраненные фильмы
 const [savedMoviesList, setSavedMoviesList] = React.useState([])
-
-// переменная для ошибок
-const [isFound, setIsFound] = React.useState(true);
 
 const [errorMessageMovies, setIsErrorMessageMovies] = React.useState(false);
 const [errorMessageSavedMovies, setIsErrorMessageSavedMovies] = React.useState(false);
@@ -271,11 +267,6 @@ React.useEffect(() => {
   // ФИЛЬТР ДЛЯ ВСЕХ ФИЛЬМОВ
   function filterMovies(movies, key, isShort) {
     const filteredByKeywordMovies = filterKeyword(movies, key);// ищем по ключевому слову
-    if (filteredByKeywordMovies.length !== 0) {
-      setIsFound(true);  
-    } else {
-      setIsFound(false);
-    }
     if (isShort) {
        return filterShortAllMovies(filteredByKeywordMovies, isShort);
     } else {
@@ -316,11 +307,12 @@ React.useEffect(() => {
                 <Navigation linkMoviesActiveClass='link-active'/>
               </Header>
               <Movies 
+                filterKeyword={filterKeyword}
+                filterShortAllMovies={filterShortAllMovies}
                 filterMovies={filterMovies}
-                setIsFound={setIsFound}
+
                 currentMovies={currentMovies}
                 setCurrentMovies={setMovies}
-                filterShortAllMovies={filterShortAllMovies}
                 setFilteredMovies={setFilteredMovies}
                 filteredMovies={filteredMovies}
                 savedMoviesList={savedMoviesList}
@@ -328,8 +320,8 @@ React.useEffect(() => {
                 deleteMovie={deleteMovie}
                 submitSearch={filterMovies}
                 isLoading={isLoading}
+
                 errorMessageMovies={errorMessageMovies}
-                isFound={isFound}
               />
               <Footer />
             </>
@@ -342,8 +334,10 @@ React.useEffect(() => {
                 <Navigation  linkActiveClass='link-active'/>
               </Header>
               <SavedMovies 
+                filterKeyword={filterKeyword}
+                filterShortAllMovies={filterShortAllMovies}
                 filterMovies={filterMovies}
-                setIsFound={setIsFound}
+
                 setFilteredSavedMovies={setFilteredSavedMovies}
                 deleteClass='movie__button_delete'
                 filteredSavedMovies={filteredSavedMovies}
@@ -353,7 +347,6 @@ React.useEffect(() => {
                 isLoading={isLoading}
    
                 errorMessageSavedMovies={errorMessageSavedMovies}
-                isFound={isFound}
               />
               <Footer />
             </>
