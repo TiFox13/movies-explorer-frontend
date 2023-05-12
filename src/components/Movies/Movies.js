@@ -38,39 +38,40 @@ function Movies({
     }
     }, [setIsFound, filteredMovies])  
 
+  // функция для работы с чекбоксом
   function onChangeCheckboxAllMovies() {
        setIsChecked(!isChecked);
        localStorage.setItem('checkbox', JSON.stringify(!isChecked));
        if (filteredMovies.length !== 0) {
        const filteredShortMovies = filterAllMovies(key, !isChecked)
     } else {
-      setFilteredMovies(filterMovies(currentMovies, key))
+      const filteredByKeyAndShort = filterMovies(currentMovies, key, !isChecked)
+      setFilteredMovies(filteredByKeyAndShort)
+      localStorage.setItem('filteredMovies', JSON.stringify(filteredByKeyAndShort));
     }
   }
 
-  // локальная функция для модуля Movies   
+  // локальная функция-фильтр для модуля Movies   
   function filterAllMovies(key, isShort) {
     const filteredByKeywordMovies = filterKeyword(currentMovies, key);// ищем по ключевому слову
-    localStorage.setItem('filteredMovies', JSON.stringify(filteredByKeywordMovies));
+   localStorage.setItem('filteredMovies', JSON.stringify(filteredByKeywordMovies));
     if (filteredByKeywordMovies.length !== 0) {
       setIsFound(true);  
     } else {
       setIsFound(false);
     }
-    
     if (isShort) {
       const filteredMovies = filterShortAllMovies(filteredByKeywordMovies, isShort)
       localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
       setFilteredMovies(filteredMovies)
-
       if (filteredMovies.length !== 0) {
         setIsFound(true);  
       } else {
         setIsFound(false);
       }
-
     } else {
       setFilteredMovies(filteredByKeywordMovies)
+      
     }
   }
 

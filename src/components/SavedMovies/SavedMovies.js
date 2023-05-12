@@ -28,6 +28,7 @@ function SavedMovies({
     }
     }, [setIsFound, filteredSavedMovies])  
 
+  // функция для работы с чекбоксом
   function onChangeCheckboxMovies() {
     setIsShort(!isShort);
     if (filteredSavedMovies.length !== 0) {  
@@ -37,7 +38,7 @@ function SavedMovies({
     }
   }
 
-  // локальная функция для модуля Movies   
+  // локальная функция-фильтр для модуля Movies   
   function filterAllMovies(key, isShort) {
     const filteredByKeywordMovies = filterKeyword(savedMoviesList, key);// ищем по ключевому слову
     if (filteredByKeywordMovies.length !== 0) {
