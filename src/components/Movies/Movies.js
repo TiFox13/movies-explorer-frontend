@@ -5,25 +5,29 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader'
 
 function Movies({ 
+  filterMovies,
+  setIsFound,
+  currentMovies,
+  setFilteredMovies,
   filterShortAllMovies,
-setFilteredMovies,
   filteredMovies,
   savedMoviesList,
   saveMovie,
   deleteMovie,
-  submitSearch,
-  isChecked,
   isLoading,
-  onChangeCheckbox,
   errorMessageMovies,
   isFound,
   deleteClass
 }) {
 
+  const [isChecked, setIsChecked] = React.useState(JSON.parse(localStorage.getItem('checkbox')) || false)
+  const [key, setKey] = React.useState(localStorage.getItem('key') || '')
+
+
   React.useEffect(() => {
     if (isChecked) {
-      filterShortAllMovies(filteredMovies)
-    } else {
+      const filterMovies = filterShortAllMovies(filteredMovies)
+
       const movies = JSON.parse(localStorage.getItem('filteredMovies'))
       if (movies !== null) {
         return setFilteredMovies(movies)
@@ -31,11 +35,44 @@ setFilteredMovies,
     }
   }, [])
 
+  function onChangeCheckboxAllMovies() {
+       setIsChecked(!isChecked);
+       localStorage.setItem('checkbox', JSON.stringify(!isChecked));
+       if (filteredMovies.length !== 0) {
+       const filteredShortMovies = filterAllMovies(key, !isChecked)
+    } else {
+      if (key !== '') {
+        const filteredMovies = filterMovies(currentMovies, key, !isChecked)
+      // localStorage.setItem('filteredMovies', JSON.stringify(filteredShortMovies));
+        return setFilteredMovies(filteredMovies)
+      }
+    }
+  }
+
+  // локальная функция для модуля Movies   
+function filterAllMovies(key, isShort) {
+  const filteredMovies = filterMovies(currentMovies, key, isShort)
+  if (filteredMovies.length !== 0) {
+    setIsFound(true);  
+  } else {
+    setIsFound(false);
+  }
+  localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
+  setFilteredMovies(filteredMovies)
+
+ }
+
+function submitSearch(key) {
+  setKey(key)
+  localStorage.setItem('key', key)
+  filterAllMovies(key, isChecked)
+}
+
   return (
     <main>
     <SearchForm 
       handleSubmit={submitSearch} 
-      onChange={onChangeCheckbox} 
+      onChange={onChangeCheckboxAllMovies} 
       isChecked={isChecked}
     />
     {isLoading ? <Preloader /> 

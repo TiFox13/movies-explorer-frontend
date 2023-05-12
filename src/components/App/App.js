@@ -32,8 +32,6 @@ const [loggedIn, setLoggedIn] = React.useState(false);
 // пользователь
 const [currentUser, setCurrentUser] = React.useState({});
 
-// чекбокс 
-const [isChecked, setIsChecked] = React.useState(JSON.parse(localStorage.getItem('checkbox')) || false);
 // сюда будем кидать отфильтрованные фильмы
 const [filteredMovies, setFilteredMovies] = React.useState(JSON.parse(localStorage.getItem('filteredMovies')) || [])
 const [filteredSavedMovies, setFilteredSavedMovies] = React.useState(JSON.parse(localStorage.getItem('savedMovies')) || [])
@@ -42,9 +40,8 @@ const [currentMovies, setMovies] = React.useState(JSON.parse(localStorage.getIte
 // сохраненные фильмы
 const [savedMoviesList, setSavedMoviesList] = React.useState([])
 
-// переменные для ошибок
+// переменная для ошибок
 const [isFound, setIsFound] = React.useState(true);
-const [isFoundSaveMovies, setIsFoundSaveMovies] = React.useState(true)
 
 const [errorMessageMovies, setIsErrorMessageMovies] = React.useState(false);
 const [errorMessageSavedMovies, setIsErrorMessageSavedMovies] = React.useState(false);
@@ -70,15 +67,17 @@ React.useEffect(() => {
 
 // ВЫХОД ИЗ ПРИЛОЖЕНИЯ
 function signOut() {
+  setMovies({})
+  setSavedMoviesList([])
+  setFilteredMovies([]);
+  setFilteredSavedMovies([]);
+
   localStorage.removeItem('jwt')
-  localStorage.removeItem('movies')
   localStorage.removeItem('filteredMovies')
   localStorage.removeItem('key')
   localStorage.setItem('checkbox', false)
   localStorage.removeItem('savedMovies')
-
-  setFilteredMovies([]);
-  setFilteredSavedMovies([]);
+  localStorage.removeItem('movies')
 
   setLoggedIn(false);
   navigate('/');
@@ -177,19 +176,19 @@ React.useEffect(() => {
   // если в хранилище еще нет фильмов, то их надо получить
     if (loggedIn && !currentMovies.length) {
       setIsLoading(true)
-      return moviesApi.getMovies()
-        .then((res) => {
-          setMovies(res);
-          // сохраняем фильмы в локальном хранилище
-          localStorage.setItem('movies', JSON.stringify(res))
-        })
-        .catch((error) => {
-          console.log(error) // выведем ошибку в консоль
-          setIsErrorMessageMovies(true)
-        })
-        .finally(() => {
-          setIsLoading(false)
-        })
+     moviesApi.getMovies()
+      .then((res) => {
+        setMovies(res);
+        // сохраняем фильмы в локальном хранилище
+        localStorage.setItem('movies', JSON.stringify(res))
+      })
+      .catch((error) => {
+        console.log(error) // выведем ошибку в консоль
+        setIsErrorMessageMovies(true)
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
     }
   }, [loggedIn])
 
@@ -213,14 +212,14 @@ React.useEffect(() => {
   function saveMovie(movie) {  
     const token = localStorage.getItem('jwt');
     mainApi.saveMovie(movie, token)
-    .then((res) => {
-      setSavedMoviesList([...savedMoviesList, res])
-    })
-    .catch((err) => {
-      console.log(err)
-      setMessage(movieMessages.SAVE_ERROR)
-      handleInfoTooltipOpen() 
-    })
+      .then((res) => {
+        setSavedMoviesList([...savedMoviesList, res])
+      })
+      .catch((err) => {
+        console.log(err)
+        setMessage(movieMessages.SAVE_ERROR)
+        handleInfoTooltipOpen() 
+      })
   }
 
   // УДАЛИТЬ ФИЛЬМ
@@ -249,19 +248,6 @@ React.useEffect(() => {
 // ФИЛЬТРАЦИЯ ФИЛЬМОВ
 ////////////////////////////////////////////////////////
 
-  // меняет состояние чекбокса на основной странице
-  function onChangeCheckboxAllMovies() {
-    setIsChecked(!isChecked);
-    localStorage.setItem('checkbox', JSON.stringify(isChecked));
-    if (filteredMovies.length !== 0) {
-    if (!isChecked) {
-      filterShortAllMovies(filteredMovies)
-    } else {
-      setFilteredMovies(JSON.parse(localStorage.getItem('filteredMovies')))
-    }
-  }
-}
-
   // фильтр по ключевым словам
   function filterKeyword(movies, key) {
     let filteredByKeywordMovies = [];
@@ -272,69 +258,28 @@ React.useEffect(() => {
     });
     return filteredByKeywordMovies;
   }
-
-  //фильтр фильмов по времени
-  function filterShortMovies(movies) {
- if (movies.length !== 0 ) {
+  
+ function filterShortAllMovies(movies) {
+  if (movies.length !== 0 ) {
     const filteredShortMovies = movies.filter((movie) => {
       return movie.duration <= 40;
     })
     return filteredShortMovies
-  } 
+  }
 }
 
- function filterShortAllMovies(movies) {
-  const filteredShortMovies = filterShortMovies(movies)
-     if (filteredShortMovies.length === 0) {
-       setIsFound(false);
-       setFilteredMovies(filteredShortMovies);
-     } else {
-       setIsFound(true);
-       setFilteredMovies(filteredShortMovies);
-     }
-   }
-
   // ФИЛЬТР ДЛЯ ВСЕХ ФИЛЬМОВ
-  function filterMovies( key) {
-        localStorage.setItem('key', key)
-    // ищем по ключевому слову
-    const filteredByKeywordMovies = filterKeyword(currentMovies, key);
-    localStorage.setItem('filteredMovies', JSON.stringify(filteredByKeywordMovies));
-    //высветить ошибку, если мы ничего не нашли
+  function filterMovies(movies, key, isShort) {
+    const filteredByKeywordMovies = filterKeyword(movies, key);// ищем по ключевому слову
     if (filteredByKeywordMovies.length !== 0) {
-      setIsFound(true);
+      setIsFound(true);  
     } else {
       setIsFound(false);
     }
-    setFilteredMovies(filteredByKeywordMovies);
-    //ищем короткие фильмы, если нужно
-    if (isChecked) {
-      return filterShortAllMovies(filteredByKeywordMovies);
-    }
-  }
-
-   function filterShortSavedMovies(movies) {
-    const filteredShortMovies = filterShortMovies(movies)
-    if (filteredShortMovies.length === 0) {
-      setIsFoundSaveMovies(false);
-      setFilteredSavedMovies(filteredShortMovies);
+    if (isShort) {
+       return filterShortAllMovies(filteredByKeywordMovies, isShort);
     } else {
-      setIsFoundSaveMovies(true);
-      setFilteredSavedMovies(filteredShortMovies);
-    }
-     }
-     
-  // ФИЛЬТР ДЛЯ СОХРАНЕННЫХ ФИЛЬМОВ
-  function filterSavedMovies(key) {
-    const filteredByKeywordMovies = filterKeyword(savedMoviesList, key);
-    if (filteredByKeywordMovies.length === 0) {
-      setIsFoundSaveMovies(false);
-    } else {
-      setIsFoundSaveMovies(true);
-    }
-    setFilteredSavedMovies(filteredByKeywordMovies);
-    if (isChecked) {
-      filterShortSavedMovies(filteredByKeywordMovies)
+      return filteredByKeywordMovies
     }
   }
 
@@ -371,6 +316,10 @@ React.useEffect(() => {
                 <Navigation linkMoviesActiveClass='link-active'/>
               </Header>
               <Movies 
+                filterMovies={filterMovies}
+                setIsFound={setIsFound}
+                currentMovies={currentMovies}
+                setCurrentMovies={setMovies}
                 filterShortAllMovies={filterShortAllMovies}
                 setFilteredMovies={setFilteredMovies}
                 filteredMovies={filteredMovies}
@@ -378,9 +327,7 @@ React.useEffect(() => {
                 saveMovie={saveMovie}
                 deleteMovie={deleteMovie}
                 submitSearch={filterMovies}
-                isChecked={isChecked}
                 isLoading={isLoading}
-                onChangeCheckbox={onChangeCheckboxAllMovies}
                 errorMessageMovies={errorMessageMovies}
                 isFound={isFound}
               />
@@ -395,22 +342,18 @@ React.useEffect(() => {
                 <Navigation  linkActiveClass='link-active'/>
               </Header>
               <SavedMovies 
-                setIsFound={setIsFoundSaveMovies}
-
-                filterShortSavedMovies={filterShortSavedMovies}
-
+                filterMovies={filterMovies}
+                setIsFound={setIsFound}
                 setFilteredSavedMovies={setFilteredSavedMovies}
                 deleteClass='movie__button_delete'
                 filteredSavedMovies={filteredSavedMovies}
                 savedMoviesList={savedMoviesList}
-                submitSearch={filterSavedMovies}
                 deleteMovie={deleteMovie}
                 saveMovie={saveMovie}
-                isChecked={isChecked}
                 isLoading={isLoading}
    
                 errorMessageSavedMovies={errorMessageSavedMovies}
-                isFound={isFoundSaveMovies}
+                isFound={isFound}
               />
               <Footer />
             </>

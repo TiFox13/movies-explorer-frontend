@@ -11,7 +11,6 @@ function Profile({onUpdate, signOut, isLoading}) {
 
   const {
     values,
-    setValues,
     handleChange,
     errors,
     isValid,
@@ -19,12 +18,13 @@ function Profile({onUpdate, signOut, isLoading}) {
   } = useForm();
 
   const [formActive, setFormActive] = React.useState(false)
-
   const currentUser = React.useContext(CurrentUserContext);
-
+  
   React.useEffect(() => {
-    setValues(currentUser)
-  }, []); 
+    if (currentUser) {
+      resetForm(currentUser);
+    }
+  }, [resetForm, currentUser]);
 
   function handlePatchClick() {
     if (formActive === false) {
@@ -32,12 +32,15 @@ function Profile({onUpdate, signOut, isLoading}) {
     }
 }
 
-function handleSubmit(e) {
-  e.preventDefault();
-  onUpdate({name: values.name, email: values.email})
-  setFormActive(false)
-  resetForm({currentUser})
-}
+  function  handleSubmit(e) {
+    e.preventDefault();
+    onUpdate({name: values.name, email: values.email})
+    resetForm({
+      name: currentUser.name,
+      email: currentUser.email
+    })
+    setFormActive(false)
+  }
 
   return (
     <section className='profile'>
@@ -60,7 +63,6 @@ function handleSubmit(e) {
         <input type='button' onClick={signOut} className='button profile-button profile-button_sign-out' value='Выйти из аккаунта' aria-label='Выйти из аккаунта' hidden={formActive}/>
       </form>
     </section>
-
   )
 }
 

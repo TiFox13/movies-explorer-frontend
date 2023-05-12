@@ -43,7 +43,7 @@ export const authMessages = {
 
 export const userMessages = {
   UPDATE_OK: 'Ваши данные успешно обновлены!',
-  UPDATE_ERROR: 'При одновлении данных произошла ошибка. Подождите немного и попроуйте снова'
+  UPDATE_ERROR: 'При одновлении данных произошла ошибка. Подождите немного и попробуйте снова'
 }
 
 export const movieMessages = {

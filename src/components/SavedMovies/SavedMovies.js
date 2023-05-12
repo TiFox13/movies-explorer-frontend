@@ -5,14 +5,12 @@ import SavedMoviesList from '../SavedMoviesList/SavedMoviesList';
 import Preloader from '../Preloader/Preloader'
 
 function SavedMovies({ 
-  filterShortSavedMovies,
-
+  filterMovies,
   setIsFound,
   setFilteredSavedMovies,
   savedMoviesList,
   filteredSavedMovies,
   deleteClass,
-  submitSearch,
   deleteMovie,
 
   isLoading,
@@ -22,37 +20,43 @@ function SavedMovies({
 }) {
 
 const [isShort, setIsShort] = React.useState(false);
+const [key, setKey] = React.useState('');
 
- function onChange() {
-  setIsShort(!isShort);
-  onChangeCheckboxSavedMovies()
- }
-
- 
- function onChangeCheckboxSavedMovies() {
+function onChangeCheckboxMovies() {
   setIsShort(!isShort);
   if (filteredSavedMovies.length !== 0) {
-      if (!isShort) {
-    filterShortSavedMovies(filteredSavedMovies)
+    const filteredMovies = filterAllMovies(key, !isShort) 
   } else {
-    setIsFound(true);
-    setFilteredSavedMovies(JSON.parse(localStorage.getItem('savedMovies')))
+    setFilteredSavedMovies(filterMovies(savedMoviesList, key))
   }
+}
+
+// локальная функция для модуля SavedMovies   
+function filterAllMovies(key, isShort) {
+  const filteredMovies = filterMovies(savedMoviesList, key, isShort)
+  if (filteredMovies.length !== 0) {
+    setIsFound(true);  
+  } else {
+    setIsFound(false);
   }
+  setFilteredSavedMovies(filteredMovies)
+}
+
+function submitSearch(key) {
+  setKey(key)
+  filterAllMovies(key, isShort)
 }
 
   return (
     <main>
     <SearchForm 
       handleSubmit={submitSearch}
-      onChange={onChange} 
+      onChange={onChangeCheckboxMovies} 
       isChecked={isShort}
       />
     {isLoading ? <Preloader />
       :  <SavedMoviesList
-      submitSearch={submitSearch}
-
-
+          submitSearch={submitSearch}
           setIsFound={setIsFound}
           setFilteredSavedMovies={setFilteredSavedMovies}
           filteredSavedMovies={filteredSavedMovies} 
