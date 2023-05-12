@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://api.ti.fox.movies-explore.nomoredomains.monster'
+export const BASE_URL = 'http://localhost:3000'
 
 export const VALIDATION = {
   name: {

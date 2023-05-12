@@ -5,12 +5,17 @@ import './Promo.css';
 
 import promoImage from '../../images/promoImage.svg';
 
-function Promo() {
+function Promo({loggedIn}) {
 
   const navigate = useNavigate();
+
   const navigateMovies = (event) => {
-    navigate('/movies');
-  };
+    if (loggedIn) {
+      navigate('/movies');
+    } else {
+      navigate('/signin');
+    }
+  }
 
   return (
     <section className='promo'>

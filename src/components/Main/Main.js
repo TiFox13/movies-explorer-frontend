@@ -21,7 +21,7 @@ function Main({loggedIn, profileLinkActiveClass}) {
         }
       </Header>
       <main> 
-        <Promo />
+        <Promo loggedIn={loggedIn}/>
         <AboutProject />
         <Techs />
         <AboutMe />

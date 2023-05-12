@@ -15,7 +15,7 @@ setFilteredMovies,
   isChecked,
   isLoading,
   onChangeCheckbox,
-  errorMessage,
+  errorMessageMovies,
   isFound,
   deleteClass
 }) {
@@ -23,8 +23,7 @@ setFilteredMovies,
   React.useEffect(() => {
     if (isChecked) {
       filterShortAllMovies(filteredMovies)
-    } 
-    else {
+    } else {
       const movies = JSON.parse(localStorage.getItem('filteredMovies'))
       if (movies !== null) {
         return setFilteredMovies(movies)
@@ -46,7 +45,7 @@ setFilteredMovies,
           saveMovie={saveMovie} 
           deleteMovie={deleteMovie} 
           deleteClass={deleteClass} 
-          errorMessage={errorMessage} 
+          errorMessage={errorMessageMovies} 
           isFound={isFound}
         />
     }

@@ -21,7 +21,7 @@ function SavedMoviesList({
     setIsFound(true);
     setFilteredSavedMovies(savedMoviesList);
     if (savedMoviesList.length !== 0) {
-      setNotSaved(false);
+     return setNotSaved(false);
     }
   }, [savedMoviesList])
 
@@ -32,12 +32,12 @@ function SavedMoviesList({
       <p hidden={isFound} className='card-list__error'>{searchMessages.NOT_FOUND}</p>
       <p hidden={!notSaved} className='card-list__error'>{searchMessages.NOT_SAVED}</p>
       <div className={`card-list__movies ${''}`}>
-        { filteredSavedMovies.map((item) => (
+        {filteredSavedMovies.map((item) => (
           <MoviesCard
             key={item.movieId}
             saveMovie={saveMovie}  
             isSaved={true}
-            filteredSavedMovies={filteredSavedMovies} 
+   
             savedMoviesList={savedMoviesList}
             thisMovie={item} 
             name={item.nameRU} 

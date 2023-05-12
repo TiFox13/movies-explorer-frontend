@@ -33,7 +33,7 @@ function SearchForm({handleSubmit, onChange, isChecked}) {
       setErrorText("Нужно ввести ключевое слово");
       return;
     }
-    handleSubmit(values.search);
+    handleSubmit(values.search, isChecked);
   }
 
   return (

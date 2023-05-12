@@ -4,7 +4,6 @@ import './MoviesCard.css';
 import { Link } from 'react-router-dom';
 
 function MoviesCard({ 
-  filteredMovies,
   isSaved,
   savedMoviesList,
   thisMovie, 
@@ -28,7 +27,7 @@ function MoviesCard({
   React.useEffect(() => {
     const isliked = savedMoviesList.some((savedMovie) => savedMovie.movieId === thisMovie.id);  
     setIsLiked(isliked)
-  }, [savedMoviesList, filteredMovies])
+  }, [savedMoviesList])
   
 
 // переключатель сохранить/удалить

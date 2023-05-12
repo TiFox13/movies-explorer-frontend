@@ -3,11 +3,11 @@
  class MainApi {
   constructor(object) {
     this._url = object.url;  //тут будет адрес для запроса
-    this._headers = object.headers;
+    // this.token = object.token;
   }
 
   // штука от дублирования кода
-  _getResponseData(res) {
+  _getResponseData = (res) =>  {
     if (res.ok) {
       return res.json();
     }
@@ -15,49 +15,58 @@
   }
 
   _request(url, options) {
-    return fetch(url, options).then(this._getResponseData)
+    return fetch(url, options).then(this._getResponseData);
   }
 
 
 
   // ПОЛУЧЕНИЕ ИНФОРМАЦИИ О ПОЛЬЗОВАТЕЛЕ
-  getUserInfo() {
+  getUserInfo(token) {
     return this._request(`${this._url}/users/me`,
       {
-        headers: this._headers,
+        headers: {
+          authorization: `Bearer ${token}`,
+          "Content-type": 'application/json'
+        },
         method: "GET"
-      }
-    )
+      })
   }
 
   // ИЗМЕНЕНИЕ ИНФОРМАЦИИ О ПОЛЬЗОВАТЕЛЕ
-  patchUserInfo({name, email}) {
+  patchUserInfo({name, email, token}) {
     return this._request(`${this._url}/users/me`,
       {
-        headers: this._headers,
+        headers: {
+          authorization: `Bearer ${token}`,
+          "Content-type": 'application/json'
+        },
         method: "PATCH",
         body: JSON.stringify({
           name: name,
           email: email
         })
-      }
-    )
+      })
   }
 
-  getSavedMovies() {
+  getSavedMovies(token) {
     return this._request(`${this._url}/movies`,
     {
-      headers: this._headers,
+      headers: {
+        authorization: `Bearer ${token}`,
+        "Content-type": 'application/json'
+      },
       method: "GET"
-    }
-  )
+    })
   }
 
   // ДОБАВИТЬ ФИЛЬМ В СОХРАНЕННЫЕ
-  saveMovie(movie) {
+  saveMovie(movie, token) {
     return this._request(`${this._url}/movies`,
       {
-        headers: this._headers,
+        headers: {
+          authorization: `Bearer ${token}`,
+          "Content-type": 'application/json'
+        },
         method: "POST",
         body: JSON.stringify({
           country: movie.country,
@@ -72,15 +81,17 @@
           nameEN: movie.nameEN,
           movieId: movie.id, 
         })
-      }
-    )
+      })
   }
 
   // УДАЛИТЬ ФИЛЬМ ИЗ СОХРАНЕННЫХ 
-deleteMovie(movie) {
+deleteMovie(movie, token) {
   return this._request(`${this._url}/movies/${movie}`,
   {
-    headers: this._headers,
+    headers: {
+      authorization: `Bearer ${token}`,
+      "Content-type": 'application/json'
+    },
     method: "DELETE",
   })
 }
@@ -89,8 +100,5 @@ deleteMovie(movie) {
 //подключаем API
  export const mainApi = new MainApi({
   url: BASE_URL,
-  headers: {
-    authorization: `Bearer ${localStorage.getItem('jwt')}`,
-    "Content-type": 'application/json'
-  }
+  // token: localStorage.getItem('jwt'),
 });

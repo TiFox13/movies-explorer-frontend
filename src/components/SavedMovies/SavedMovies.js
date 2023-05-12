@@ -14,35 +14,52 @@ function SavedMovies({
   deleteClass,
   submitSearch,
   deleteMovie,
-  isChecked,
+
   isLoading,
-  onChangeCheckbox,
-  errorMessage,
+
+  errorMessageSavedMovies,
   isFound
 }) {
 
-  React.useEffect(() => {
-    if (isChecked) {
-      filterShortSavedMovies(filteredSavedMovies)
-    }
-  }, [])
+const [isShort, setIsShort] = React.useState(false);
+
+ function onChange() {
+  setIsShort(!isShort);
+  onChangeCheckboxSavedMovies()
+ }
+
+ 
+ function onChangeCheckboxSavedMovies() {
+  setIsShort(!isShort);
+  if (filteredSavedMovies.length !== 0) {
+      if (!isShort) {
+    filterShortSavedMovies(filteredSavedMovies)
+  } else {
+    setIsFound(true);
+    setFilteredSavedMovies(JSON.parse(localStorage.getItem('savedMovies')))
+  }
+  }
+}
 
   return (
     <main>
     <SearchForm 
       handleSubmit={submitSearch}
-      onChange={onChangeCheckbox} 
-      isChecked={isChecked}
+      onChange={onChange} 
+      isChecked={isShort}
       />
     {isLoading ? <Preloader />
-      :  <SavedMoviesList 
+      :  <SavedMoviesList
+      submitSearch={submitSearch}
+
+
           setIsFound={setIsFound}
           setFilteredSavedMovies={setFilteredSavedMovies}
           filteredSavedMovies={filteredSavedMovies} 
           savedMoviesList={savedMoviesList} 
           deleteMovie={deleteMovie} 
           deleteClass={deleteClass}
-          errorMessage={errorMessage} 
+          errorMessage={errorMessageSavedMovies} 
           isFound={isFound}
         />
     }

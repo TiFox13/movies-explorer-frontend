@@ -40,23 +40,22 @@ function MoviesCardList({
 
   function handleMoreButtonClick() {
 if (width <= breakpoints.SCREEN_M) {
-    setMovieCounter(movieCounter + 2)
-  } else {
-    setMovieCounter(movieCounter + 3)
-  }
+    return setMovieCounter(movieCounter + 2)
+  } 
+   return setMovieCounter(movieCounter + 3)
   }
 
   React.useEffect(() => {
     if (width <= breakpoints.SCREEN_S) {
       return setMovieCounter(numbersOfFilms.MOBILE);
-    } 
-    if (width <= breakpoints.SCREEN_M) {
+    } else if (width <= breakpoints.SCREEN_M) {
       setMovieCounter(numbersOfFilms.TABLET);
     } else {
       setMovieCounter(numbersOfFilms.DESKTOP);
     }
   }, [width, movies.length]);
 
+  
   function renderMovies() {
     return [...movies.slice(0, movieCounter)];
   }
