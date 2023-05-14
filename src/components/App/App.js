@@ -99,8 +99,7 @@ function handleRegister(name, email, password) {
   setIsLoading(true);
   Auth.register(name, email, password)
     .then(() => {
-      setMessage(authMessages.REGISTER)
-      handleInfoTooltipOpen() // открытие информационного окна. успешна регистрация
+      handleLogin(email, password)
     })
     .catch(() => {
       setMessage(authMessages.AUTH_ERROR)
