@@ -33,9 +33,7 @@ function Movies({
   }, [])
 
   React.useEffect(() => {
-    if (filteredMovies.length !== 0) {
-      setIsFound(true); 
-    }
+    filteredMovies.length !== 0 ? setIsFound(true) : setIsFound(false)
     }, [setIsFound, filteredMovies])  
 
   // функция для работы с чекбоксом
