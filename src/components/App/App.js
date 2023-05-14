@@ -57,7 +57,7 @@ React.useEffect(() => {
     Auth.getToken(jwt)
       .then((res) => {
         setLoggedIn(true);
-// забираем информацию о пользователе
+        // забираем информацию о пользователе
         setCurrentUser(res);  
       })
       .catch((error) => {
@@ -153,6 +153,7 @@ function handleUpdateUser({name, email}) {
   const token = localStorage.getItem('jwt');
   mainApi.patchUserInfo({name, email, token})
   .then((res) => {
+    // записали новые данные пользователя в переменную контекста
     setCurrentUser(res)
     setMessage(userMessages.UPDATE_OK)
     handleInfoTooltipOpen() // открытие информационного окна. успешное обновление

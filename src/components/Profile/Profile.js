@@ -14,21 +14,28 @@ function Profile({onUpdate, signOut, isLoading}) {
     handleChange,
     errors,
     isValid,
-    resetForm
+    resetForm,
+    setIsValid
   } = useForm();
 
   const [formActive, setFormActive] = React.useState(false)
   const currentUser = React.useContext(CurrentUserContext);
-  
+
   React.useEffect(() => {
     if (currentUser) {
       resetForm(currentUser);
     }
   }, [resetForm, currentUser]);
 
+  React.useEffect(() => {
+    if (currentUser.name === values.name && currentUser.email === values.email) {
+      return setIsValid(false)
+    } 
+  }, [currentUser, values]);
+
   function handlePatchClick() {
     if (formActive === false) {
-     return setFormActive(true)
+      return setFormActive(true)
     }
 }
 
