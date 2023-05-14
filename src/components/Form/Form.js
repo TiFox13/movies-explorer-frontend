@@ -32,7 +32,7 @@ function submit(e){
           <span className = 'form__item-error email-input-error'>{errors.email}</span>
       </label>
       <label className = 'form__input-field password-input-field'>Пароль
-          <input value={values.password} onChange={handleChange} type='text' id ='password-input' placeholder='Длина пароля не меньше 4 символов' className='form__item form__item_password' name='password'  required minLength='4' maxLength='200' disabled={props.isLoading} />
+          <input value={values.password} onChange={handleChange} type='password' id ='password-input' placeholder='Длина пароля не меньше 4 символов' className='form__item form__item_password' name='password'  required minLength='4' maxLength='200' disabled={props.isLoading} />
           <span className = 'form__item-error password-input-error'>{errors.password}</span>
       </label>
       {props.isLoading ? <Preloader /> : ''}
