@@ -68,6 +68,7 @@ function SavedMovies({
   return (
     <main>
     <SearchForm 
+      defaultKey=''
       handleSubmit={submitSearch}
       onChange={onChangeCheckboxMovies} 
       isChecked={isShort}

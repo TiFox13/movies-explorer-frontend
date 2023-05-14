@@ -5,7 +5,7 @@ import { useForm } from '../../hooks/useForm';
 
 import './SearchForm.css';
 
-function SearchForm({handleSubmit, onChange, isChecked}) {
+function SearchForm({defaultKey, handleSubmit, onChange, isChecked}) {
 
   const {
     values,
@@ -18,7 +18,7 @@ function SearchForm({handleSubmit, onChange, isChecked}) {
   const [errorText, setErrorText] = React.useState('Фильм');
   
   React.useEffect(() => {
-    setValues({search: value})
+    {defaultKey === '' ? setValues({search: defaultKey}) : setValues({search: value})}
   }, []); 
 
   React.useEffect(() => {
