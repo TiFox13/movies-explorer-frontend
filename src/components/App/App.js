@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes, useNavigate} from 'react-router-dom';
+import { Route, Routes, useNavigate, Navigate} from 'react-router-dom';
 
 import './App.css';
 
@@ -282,11 +282,15 @@ React.useEffect(() => {
             <Main loggedIn={loggedIn} profileLinkActiveClass='link-active'/>
            } />
 
-          <Route path='/signup' element={ 
+          <Route path='/signup' element={ loggedIn ? 
+            <Navigate to='/movies' />
+            : 
             <Register handleSubmit={handleRegister} isLoading={isLoading} />
           } />
 
-          <Route path='/signin' element={
+          <Route path='/signin' element={ loggedIn ? 
+            <Navigate to='/movies' />
+            : 
             <Login handleSubmit={handleLogin} isLoading={isLoading}/>
           } />
 
