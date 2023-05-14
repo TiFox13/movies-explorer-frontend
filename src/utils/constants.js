@@ -1,4 +1,5 @@
 export const BASE_URL = 'https://api.ti.fox.movies-explore.nomoredomains.monster'
+export const SHORT_FILM_DURATION = 40;
 
 export const VALIDATION = {
   name: {

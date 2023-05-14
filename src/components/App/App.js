@@ -5,7 +5,12 @@ import './App.css';
 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import ProtectedRouteElement from '../ProtectedRoute/ProtectedRoute';
-import { authMessages, userMessages, movieMessages } from '../../utils/constants';
+import { 
+  authMessages, 
+  userMessages, 
+  movieMessages, 
+  SHORT_FILM_DURATION 
+} from '../../utils/constants';
 
 import Main from '../Main/Main';
 import Header from '../Header/Header';
@@ -257,7 +262,7 @@ React.useEffect(() => {
  function filterShortAllMovies(movies) {
   if (movies.length !== 0 ) {
     const filteredShortMovies = movies.filter((movie) => {
-      return movie.duration <= 40;
+      return movie.duration <= SHORT_FILM_DURATION;
     })
     return filteredShortMovies
   }
