@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes, useNavigate, Navigate} from 'react-router-dom';
+import { Route, Routes, useNavigate, Navigate, useLocation} from 'react-router-dom';
 
 import './App.css';
 
@@ -31,6 +31,7 @@ import * as Auth from '../../utils/Auth';
 function App() {
 
 const navigate = useNavigate();
+const location = useLocation()
 
 const [loggedIn, setLoggedIn] = React.useState(false);
 // пользователь
@@ -49,16 +50,16 @@ const [errorMessageSavedMovies, setIsErrorMessageSavedMovies] = React.useState(f
 // загрузка
 const [isLoading, setIsLoading] = React.useState(false);
 
-
 // ПРОВЕРКА ТОКЕНА
 React.useEffect(() => {
   const jwt = localStorage.getItem('jwt');
   if (jwt) {
     Auth.getToken(jwt)
       .then((res) => {
-        setLoggedIn(true);
+        setLoggedIn(true)
         // забираем информацию о пользователе
         setCurrentUser(res);  
+        navigate(location.pathname)
       })
       .catch((error) => {
         console.log(error); // выведем ошибку в консоль
@@ -69,10 +70,9 @@ React.useEffect(() => {
 // ВЫХОД ИЗ ПРИЛОЖЕНИЯ
 function signOut() {
   setMovies({})
-  setSavedMoviesList([])
+  setSavedMoviesList([]);
   setFilteredMovies([]);
   setFilteredSavedMovies([]);
-
   localStorage.removeItem('jwt')
   localStorage.removeItem('filteredMovies')
   localStorage.removeItem('key')
@@ -294,7 +294,8 @@ React.useEffect(() => {
             <Register handleSubmit={handleRegister} isLoading={isLoading} />
           } />
 
-          <Route path='/signin' element={ loggedIn ? 
+          <Route path='/signin' element={ loggedIn 
+          ? 
             <Navigate to='/movies' />
             : 
             <Login handleSubmit={handleLogin} isLoading={isLoading}/>
