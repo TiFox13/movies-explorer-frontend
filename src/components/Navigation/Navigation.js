@@ -5,10 +5,10 @@ import './Navigation.css'
 
 function Navigation(props) {
 
-const [menuOpened, setMenuOpened] = React.useState(false);
-const [linkOpenedClass, setLinkOpenedClass] = React.useState('')
-const [navigationOpenedClass, setNavigationOpenedClass] = React.useState('')
-const [burgerOpenedClass, setBurgerOpenedClass] = React.useState('')
+  const [menuOpened, setMenuOpened] = React.useState(false);
+  const [linkOpenedClass, setLinkOpenedClass] = React.useState('')
+  const [navigationOpenedClass, setNavigationOpenedClass] = React.useState('')
+  const [burgerOpenedClass, setBurgerOpenedClass] = React.useState('')
 
   function handlerBurgerClick() {
     if (!menuOpened) {
@@ -29,7 +29,7 @@ const [burgerOpenedClass, setBurgerOpenedClass] = React.useState('')
       <input className='menu__toggle' type='checkbox'/>
       <button onClick={handlerBurgerClick} className={`button menu__burger ${burgerOpenedClass}`} 
         for='menu__toggle'></button>
-    <nav className={`navigation ${navigationOpenedClass}`}>
+      <nav className={`navigation ${navigationOpenedClass}`}>
       <div className='menu'>
         <Link to='/' className={`link  menu__link-for-burger   ${linkOpenedClass}` }>
             <p className={`link menu__link`} >Главная</p>
@@ -46,7 +46,6 @@ const [burgerOpenedClass, setBurgerOpenedClass] = React.useState('')
           <div className='navigation__icon'></div>
         </Link>
     </nav>
-    
     </>
   )
 }

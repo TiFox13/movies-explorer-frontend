@@ -5,13 +5,10 @@ import './NavTab.css'
 
 function NavTab() {
 
-
   const navigate = useNavigate();
-  
   const navigateRegister = (event) => {
       navigate('/signup');
   };
-
   const navigateLogin = (event) => {
       navigate('/signin');
   };

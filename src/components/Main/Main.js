@@ -1,22 +1,27 @@
 import React from 'react';
 
 import Header from '../Header/Header';
-import Footer from '../Footer/Footer.js'
-import Promo from '../Promo/Promo.js';
-import AboutProject from '../AboutProject/AboutProject.js';
-import Techs from '../Techs/Techs.js';
-import AboutMe from '../AboutMe/AboutMe.js';
-import Portfolio from '../Portfolio/Portfolio.js';
-import NavTab from '../NavTab/NavTab.js'
+import Footer from '../Footer/Footer'
+import Promo from '../Promo/Promo';
+import AboutProject from '../AboutProject/AboutProject';
+import Techs from '../Techs/Techs';
+import AboutMe from '../AboutMe/AboutMe';
+import Portfolio from '../Portfolio/Portfolio';
+import NavTab from '../NavTab/NavTab'
+import Navigation from '../Navigation/Navigation';
 
-function Main() {
+function Main({loggedIn, profileLinkActiveClass}) {
+
   return (
     <>
       <Header class='main-header'>
-        <NavTab />
+        {loggedIn 
+          ? <Navigation profileLinkActiveClass={profileLinkActiveClass} />
+          : <NavTab />
+        }
       </Header>
       <main> 
-        <Promo />
+        <Promo loggedIn={loggedIn}/>
         <AboutProject />
         <Techs />
         <AboutMe />
