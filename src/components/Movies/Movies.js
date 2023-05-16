@@ -33,8 +33,12 @@ function Movies({
   }, [])
 
   React.useEffect(() => {
-    filteredMovies.length !== 0 ? setIsFound(true) : setIsFound(false)
-    }, [setIsFound, filteredMovies])  
+    filteredMovies.length !== 0 ? setIsFound(true) : setIsFound(false) 
+  }, [setIsFound, filteredMovies])  
+
+  React.useEffect(() => {
+    setIsFound(true) 
+     }, [])  
 
   // функция для работы с чекбоксом
   function onChangeCheckboxAllMovies() {
@@ -69,7 +73,6 @@ function Movies({
       }
     } else {
       setFilteredMovies(filteredByKeywordMovies)
-      
     }
   }
 
