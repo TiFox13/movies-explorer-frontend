@@ -1,29 +1,60 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 import './MoviesCard.css';
+import { Link } from 'react-router-dom';
 
-function MoviesCard({name, duration, image, deleteClass}) {
+function MoviesCard({ 
+  isSaved,
+  savedMoviesList,
+  thisMovie, 
+  name, 
+  duration, 
+  image, 
+  deleteClass, 
+  saveMovie, 
+  deleteMovie}) {
 
-  const [isActive, setActive] = useState(false);
+// приводит длительность фильма в нужный вид
+  function formatDuration(time) {
+    const hours = Math.trunc(time / 60);
+    const minutes = time % 60;
+    return `${hours}ч ${minutes}м`;
+  };
 
-  function handleFavorClick() {
-    if (!isActive) {
-      setActive(true)
+  const [isliked, setIsLiked] = React.useState(false)
+
+  // когда фильм отрисовывается, проверим, сохранял ли его себе пользователь?
+  React.useEffect(() => {
+    const isliked = savedMoviesList.some((savedMovie) => savedMovie.movieId === thisMovie.id);  
+    setIsLiked(isliked)
+  }, [savedMoviesList])
+  
+
+// переключатель сохранить/удалить
+  function handleSaveClick() {
+    if (!isliked) {
+      saveMovie(thisMovie)
     } else {
-      setActive(false)
+    deleteMovie(thisMovie)
     }
+  }
+  
+  function handleDeleteClick() {
+    deleteMovie(thisMovie)
   }
 
   return (
     <article className='movie'>
-        <div className='movie__contaner'>
-          <div className='movie__text-container'>
-            <p className='movie__name'>{name}</p>
-            <p className='movie__duration'>{duration}</p>
-          </div>
-          <button onClick={handleFavorClick} className={isActive ? `button movie__button ${deleteClass} movie__button_active` : `button movie__button ${deleteClass}`} /> 
+      <div className='movie__contaner'>
+        <div className='movie__text-container'>
+          <p className='movie__name'>{name}</p>
+          <p className='movie__duration'>{formatDuration(duration)}</p>
         </div>
-    <img className='movie__image' alt='кадр из фильма.' src={image}></img>
+        <button onClick={isliked || isSaved ? handleDeleteClick : handleSaveClick} className={isliked ? `button movie__button  movie__button_active` : `button movie__button ${deleteClass}`} /> 
+      </div>
+      <Link className='link' to={thisMovie.trailerLink} target='_blanck'>
+        <img className='movie__image' alt={name} src={image}></img>
+      </Link>
     </article>
   )
 }

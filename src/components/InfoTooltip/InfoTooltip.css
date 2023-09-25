@@ -1,0 +1,80 @@
+.info-tooltip {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.2s, opacity 0.2s linear;
+  margin: 0 auto;
+    position: fixed;
+    top:0;
+    left:0;
+    right: 0;
+    max-width: 1280px;
+    min-height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.info-tooltip_opened {
+  visibility: visible;
+  opacity: 1;
+}
+
+.info-tooltip__container {
+  width: 430px;
+  margin: 150px auto;
+}
+
+.info-tooltip__info {
+  min-height: 100px;
+background-color: #2F2F2F;
+border: 2px solid #3DDC84;
+border-radius: 6px;
+padding: 15% 0 ;
+}
+
+.button_info-tooltip {
+  width: 32px;
+  height: 32px;
+  background-image: url(../../images/delete-icon.svg);
+  background-position: center;
+  background-size: 100%;
+  margin-left: calc(100% + 8px);
+  margin-bottom: 8px;
+  background-color: rgba(0, 0, 0, 0);
+  border: 0;
+}
+
+.info-tooltip__heading {
+  margin: 0 36px;
+  padding: 0;
+
+  box-sizing: border-box;
+  font-weight: 500;
+font-size: 24px;
+line-height: 29px;
+text-align: center;
+}
+
+@media all and (max-width: 550px) {
+  .info-tooltip__heading {
+      font-size: 20px;
+line-height: 24px;
+margin: 0 18px;
+  }
+}
+
+@media all and (max-width: 550px) {
+  .button_info-tooltip {
+      margin-left: 93%;
+      margin-bottom: 16px;
+      width: 20px;
+  height: 20px; 
+  }
+}
+
+
+
+@media all and (max-width: 550px) {
+  .info-tooltip__container {
+      width: 280px;
+      margin: 130px auto;
+  }
+}
